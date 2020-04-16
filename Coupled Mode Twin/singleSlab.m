@@ -83,7 +83,7 @@ function [GAA, eta, mode, neff] = singleSlab(k0, n1, n2, w, d, varargin)
     if (exist('bisect','file') ~= 2)
 
         % Folder containing bisect.m
-        addpath([userpath '/Photonic Neurons/Numeric']); 
+        addpath([userpath '/Photonic-Neurons/Numeric']); 
 
     end
 
