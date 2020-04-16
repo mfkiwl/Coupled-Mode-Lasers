@@ -1,0 +1,253 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Coupled Mode Laser Pairs</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-04-16"><meta name="DC.source" content="CoupledMode.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Coupled Mode Laser Pairs</h1><!--introduction--><p>The set of routines in this directory implements the coupled mode model for a pair of laterally coupled slab waveguides [1].</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Important note</a></li><li><a href="#2">Functionality</a></li><li><a href="#3">Rate equations</a></li><li><a href="#7">Example code</a></li><li><a href="#14">References</a></li></ul></div><h2 id="1">Important note</h2><p>Several routines call utility functions defined in the  'Numeric' directory. It is important that the relative location of this directory is correct, as the routines that call these functions attempt to add the directory to the path if it is not already on it.</p><p>Both the 'Numeric' and 'Coupled Mode Twin' directorie should therefore be in the 'Photonic Neurons' directory, which in turn should be directly on the default MATLAB path. This should be</p><p>'C:\Users\&lt;user_name&gt;\Documents\MATLAB'</p><p>or similar. Type 'userpath' at the command line to check.</p><h2 id="2">Functionality</h2><p>
+<table><th>Routine</th><th>Notes</th><tr>
+<tr><td><a href='coupled1D.html'>coupled1D</a></td><td>Implements the
+rate equations for the model. Used in conjuction with the Runge-Kutta
+solver and called by <b>coupled1DS</b></td><tr>
+<tr><td><a href='coupled1DS.html'>coupled1DS</a></td><td>Interface
+routine calling <b>coupled1D</b>. Used in conjunction with the non-linear
+solver to find steady state solutions</td></tr>
+<tr><td><a href='loadParams.html'>loadParams</a></td><td>Loads laser
+parameters that have been saved as MAT files.</td></tr>
+<tr><td><a href='runCoupled1D.html'>runCoupled1D</a></td><td>Runs a time
+simulution (see notes below for an example).</td></tr>
+<tr><td><a href='singleSlab.html'>singleSlab</a></td><td>Calculates the
+mode profile and coupling coefficients for identical slab waveguides.
+This is called by the routine <b>runCoupled1D</b> to calculate the
+coupling coefficient for the waveguide separation. It may also be called
+directly to plot the modal profile.</td></tr>
+</table>
+</p><h2 id="3">Rate equations</h2><p>The normalised rate equations for the coupled mode model are [1]</p><p><img src="CoupledMode_eq18400800945350138261.png" alt="$$\frac{dM_{A,B}}{dt} = \gamma_{n}\left[Q_{A,B} - M_{A,B}\left(1 +&#xA;\left|Y_{A,B}\right|^{2}\right)\right],$$"></p><p><img src="CoupledMode_eq18356504516856010679.png" alt="$$\frac{dY_{A}}{dt} = \kappa_{p}\left(M_{A} - 1\right)Y_{A} -&#xA;\eta Y_{B}\sin\left(\theta + \phi\right),$$"></p><p><img src="CoupledMode_eq14331318587789408123.png" alt="$$\frac{dY_{B}}{dt} = \kappa_{p}\left(M_{B} - 1\right)Y_{B} -&#xA;\eta Y_{A}\sin\left(\theta - \phi\right),$$"></p><p><img src="CoupledMode_eq18298865038121557359.png" alt="$$\frac{d\phi}{dt} = \alpha_{H}\kappa_{p}\left(M_{A} - M_{B}\right) -&#xA;\Delta\Omega + \eta\left[\frac{Y_{A}}{Y_{B}}\cos\left(\theta -&#xA;\phi\right) - \frac{Y_{B}}{Y_{A}}\cos\left(\theta + \phi\right)\right],$$"></p><p>where the <img src="CoupledMode_eq07335163794321755589.png" alt="$M_{A,B}$"> are the carrier densities in guides <img src="CoupledMode_eq05147331747641807187.png" alt="$A$"> and <img src="CoupledMode_eq10170753361147586657.png" alt="$B$">, <img src="CoupledMode_eq16760110285656172699.png" alt="$Y_{A}$"> and <img src="CoupledMode_eq14890587729480914707.png" alt="$Y_{B}$"> are the optical fields, <img src="CoupledMode_eq06401276552089372917.png" alt="$\phi$"> is the phase difference between the fields in <img src="CoupledMode_eq05147331747641807187.png" alt="$A$"> and <img src="CoupledMode_eq10170753361147586657.png" alt="$B$">, <img src="CoupledMode_eq13128399366790210062.png" alt="$\gamma_{n} = 1/\tau_{N}$">, where <img src="CoupledMode_eq02107321891166391094.png" alt="$\tau_{N}$"> is the carrier lifetime, <img src="CoupledMode_eq03814783294338139525.png" alt="$\kappa_{p} = 1/(2\tau_{p})$">, where <img src="CoupledMode_eq06793660702307291571.png" alt="$\tau_{p}$"> is the photon lifetime, <img src="CoupledMode_eq17615028512695387165.png" alt="$\eta$"> and <img src="CoupledMode_eq08288499342375314727.png" alt="$\theta$"> are the magnitude and phase of the coupling coefficient, <img src="CoupledMode_eq10894604429485043582.png" alt="$Q_{A}$"> and <img src="CoupledMode_eq14163460496380950880.png" alt="$Q_{B}$"> are the normalised pumping rates in each laser and <img src="CoupledMode_eq03308205828934739224.png" alt="$\alpha_{H}$"> is the linewidth enhancement factor.</p><p>These equations are implemented in the function <a href="coupled1D.html">coupled1D</a>, which is used with both the Runge-Kutta solver to find the temporal dynamics and the non-linear solver for finding the steady state solutions.</p><h2 id="7">Example code</h2><p>The code examples here are all contained within the script <b>CoupledMode</b>, which may be run directly from the command line or by clicking on the run button in the editor.</p><p>The <a href="loadParams.html">loadParams</a> routine loads a mat file containing laser guide parameters. The file 'PRA.mat' contains parameters for Ref [1]. This returns a structure variable, which should be named 'param'.</p><pre class="codeinput">param = loadParams(<span class="string">'PRA_95_053869'</span>);  <span class="comment">% Laser cavity parameters using in Ref [1]</span>
+</pre><p>See <a href="loadParams.html">loadParams</a> for details of the fields initialised.</p><p>To perform a time simulation, we will need to assign further values to pass to the routine <a href="runCoupled1D.html">runCoupled1D</a>. These are</p><pre class="codeinput">tsim = 8;   <span class="comment">% Simulation time (in units of 1/yn)</span>
+QA = 10;    <span class="comment">% Normalised pump power in laser A</span>
+QB = 10;    <span class="comment">% Normalised pump power in laser B</span>
+d = 16;     <span class="comment">% Distance between guides (microns)</span>
+DW = 0;     <span class="comment">% Frequency detuning</span>
+
+opt = 1;    <span class="comment">% Optional parameter for 'runCoupled1D.m' to plot graphs</span>
+</pre><p>Call the routine to calculate temporal dynamics</p><pre class="codeinput">[tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, opt);   <span class="comment">%#ok&lt;ASGLU&gt;</span>
+</pre><p>The return value 'tout' is a 4001x1 array contained the time points, 'Nout' is a 4001x5 array containing the dynamic variables (see <a href="runCoupled1D.html">runCoupled1D</a> for details).</p><p>Without extra arguments, the routine sets default values for the initial conditions. It is also possible to pass initial conditions to the function as an optional extra argument in the form of a 5 x 1 array. The values of the array should be in normalised form and in the order:</p><p>
+<table>
+<tr><td>N0(1)</td><td>Carrier concentration in guide A</td></tr>
+<tr><td>N0(2)</td><td>Carrier concentration in guide B</td></tr>
+<tr><td>N0(3)</td><td>Optical amplitude in guide A</td></tr>
+<tr><td>N0(4)</td><td>Optical amplitude in guide B</td></tr>
+<tr><td>N0(5)</td><td>Relative phase between fields in A and B</td></tr>
+</table>
+</p><p>We may set up such an array using the steady state values at the end of the simulation carried out above, using</p><pre class="codeinput">N0 = Nout(end,:);   <span class="comment">% End values of simulation</span>
+N0 = transpose(N0); <span class="comment">% Transpose array to be in 5 x 1 form</span>
+</pre><p>The runCoupled1D routine may now be called using</p><pre class="codeinput">[tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, opt, N0);
+</pre><p>Note that y-axis scales may now need scaling, as the default scale will be to the resolution of the numerical noise.</p><h2 id="14">References</h2><p>[1] M. J. Adams, N. Li, B. R. Cemlyn, H. Susanto and I. D. Henning, Phys. Rev. A 95(5), 053869 (2017)</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Coupled Mode Laser Pairs
+%
+% The set of routines in this directory implements the coupled mode model 
+% for a pair of laterally coupled slab waveguides [1].
+%
+%% Important note
+%
+% Several routines call utility functions defined in the  'Numeric' 
+% directory. It is important that the relative location of this directory
+% is correct, as the routines that call these functions attempt to add the
+% directory to the path if it is not already on it.
+% 
+% Both the 'Numeric' and 'Coupled Mode Twin' directorie should therefore be
+% in the 'Photonic Neurons' directory, which in turn should be directly on
+% the default MATLAB path. This should be
+%
+% 	'C:\Users\<user_name>\Documents\MATLAB'  
+%
+% or similar. Type 'userpath' at the command line to check. 
+%
+%% Functionality
+%
+% <html>
+% <table><th>Routine</th><th>Notes</th><tr>
+% <tr><td><a href='coupled1D.html'>coupled1D</a></td><td>Implements the 
+% rate equations for the model. Used in conjuction with the Runge-Kutta 
+% solver and called by <b>coupled1DS</b></td><tr>
+% <tr><td><a href='coupled1DS.html'>coupled1DS</a></td><td>Interface 
+% routine calling <b>coupled1D</b>. Used in conjunction with the non-linear
+% solver to find steady state solutions</td></tr>
+% <tr><td><a href='loadParams.html'>loadParams</a></td><td>Loads laser
+% parameters that have been saved as MAT files.</td></tr>
+% <tr><td><a href='runCoupled1D.html'>runCoupled1D</a></td><td>Runs a time
+% simulution (see notes below for an example).</td></tr>
+% <tr><td><a href='singleSlab.html'>singleSlab</a></td><td>Calculates the
+% mode profile and coupling coefficients for identical slab waveguides.
+% This is called by the routine <b>runCoupled1D</b> to calculate the
+% coupling coefficient for the waveguide separation. It may also be called
+% directly to plot the modal profile.</td></tr>
+% </table>
+% </html>
+%
+%% Rate equations
+%
+% The normalised rate equations for the coupled mode model are [1]
+%
+% $$\frac{dM_{A,B}}{dt} = \gamma_{n}\left[Q_{A,B} - M_{A,B}\left(1 + 
+% \left|Y_{A,B}\right|^{2}\right)\right],$$
+%%
+% $$\frac{dY_{A}}{dt} = \kappa_{p}\left(M_{A} - 1\right)Y_{A} - 
+% \eta Y_{B}\sin\left(\theta + \phi\right),$$
+%%
+% $$\frac{dY_{B}}{dt} = \kappa_{p}\left(M_{B} - 1\right)Y_{B} - 
+% \eta Y_{A}\sin\left(\theta - \phi\right),$$
+%%
+% $$\frac{d\phi}{dt} = \alpha_{H}\kappa_{p}\left(M_{A} - M_{B}\right) - 
+% \Delta\Omega + \eta\left[\frac{Y_{A}}{Y_{B}}\cos\left(\theta - 
+% \phi\right) - \frac{Y_{B}}{Y_{A}}\cos\left(\theta + \phi\right)\right],$$
+%
+% where the $M_{A,B}$ are the carrier densities in guides $A$ and $B$,
+% $Y_{A}$ and $Y_{B}$ are the optical fields, $\phi$ is the phase
+% difference between the fields in $A$ and $B$, $\gamma_{n} = 1/\tau_{N}$,
+% where $\tau_{N}$ is the carrier lifetime, $\kappa_{p} = 1/(2\tau_{p})$,
+% where $\tau_{p}$ is the photon lifetime, $\eta$ and $\theta$ are the
+% magnitude and phase of the coupling coefficient, $Q_{A}$ and $Q_{B}$ are
+% the normalised pumping rates in each laser and $\alpha_{H}$ is the
+% linewidth enhancement factor.
+%
+% These equations are implemented in the function <coupled1D.html 
+% coupled1D>, which is used with both the Runge-Kutta solver to find the 
+% temporal dynamics and the non-linear solver for finding the steady state 
+% solutions.
+
+%% Example code
+%
+% The code examples here are all contained within the script
+% *CoupledMode*, which may be run directly from the command line or by
+% clicking on the run button in the editor.
+%
+% The <loadParams.html loadParams> routine loads a mat file containing
+% laser guide parameters. The file 'PRA.mat' contains parameters for Ref
+% [1]. This returns a structure variable, which should be named 'param'.
+%
+param = loadParams('PRA_95_053869');  % Laser cavity parameters using in Ref [1]
+%%
+% See <loadParams.html loadParams> for details of the fields initialised.
+%
+% To perform a time simulation, we will need to assign further values to
+% pass to the routine <runCoupled1D.html runCoupled1D>. These are
+%
+tsim = 8;   % Simulation time (in units of 1/yn)
+QA = 10;    % Normalised pump power in laser A
+QB = 10;    % Normalised pump power in laser B
+d = 16;     % Distance between guides (microns)
+DW = 0;     % Frequency detuning
+
+opt = 1;    % Optional parameter for 'runCoupled1D.m' to plot graphs
+%%
+% Call the routine to calculate temporal dynamics
+%
+[tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, opt);   %#ok<ASGLU>
+%%
+% The return value 'tout' is a 4001x1 array contained the time points, 
+% 'Nout' is a 4001x5 array containing the dynamic variables (see 
+% <runCoupled1D.html runCoupled1D> for details).
+%
+% Without extra arguments, the routine sets default values for the initial 
+% conditions. It is also possible to pass initial conditions to the
+% function as an optional extra argument in the form of a 5 x 1 array. The
+% values of the array should be in normalised form and in the order:
+%
+%%
+% <html>
+% <table>
+% <tr><td>N0(1)</td><td>Carrier concentration in guide A</td></tr>
+% <tr><td>N0(2)</td><td>Carrier concentration in guide B</td></tr>
+% <tr><td>N0(3)</td><td>Optical amplitude in guide A</td></tr>
+% <tr><td>N0(4)</td><td>Optical amplitude in guide B</td></tr>
+% <tr><td>N0(5)</td><td>Relative phase between fields in A and B</td></tr>
+% </table>
+% </html>
+%
+% We may set up such an array using the steady state values at the end of
+% the simulation carried out above, using
+%
+
+N0 = Nout(end,:);   % End values of simulation
+N0 = transpose(N0); % Transpose array to be in 5 x 1 form
+
+%%
+% The runCoupled1D routine may now be called using
+%
+
+[tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, opt, N0);
+
+%%
+% Note that y-axis scales may now need scaling, as the default scale will
+% be to the resolution of the numerical noise.
+
+%% References
+% [1] M. J. Adams, N. Li, B. R. Cemlyn, H. Susanto and I. D. Henning, Phys.
+% Rev. A 95(5), 053869 (2017)
+##### SOURCE END #####
+--></body></html>
