@@ -54,7 +54,7 @@ n2 = param.n2;
 w = param.w;
 
 % Find coupling coefficient
-[~, eta, ~, neff] = singleInt(k0, n1, n2, w, d);
+[~, eta, ~, neff] = singleSlab(k0, n1, n2, w, d);
 
 % Set additional required parameters
 param.eta = abs(eta);
