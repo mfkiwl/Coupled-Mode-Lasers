@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Coupled Mode Laser Pairs</h1><!--introduction--><p>The set of routines in this directory implements the coupled mode model for a pair of laterally coupled slab waveguides [1].</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Important note</a></li><li><a href="#2">Functionality</a></li><li><a href="#3">Rate equations</a></li><li><a href="#7">Example code</a></li><li><a href="#14">References</a></li></ul></div><h2 id="1">Important note</h2><p>Several routines call utility functions defined in the  'Numeric' directory. It is important that the relative location of this directory is correct, as the routines that call these functions attempt to add the directory to the path if it is not already on it.</p><p>Both the 'Numeric' and 'Coupled Mode Twin' directorie should therefore be in the 'Photonic Neurons' directory, which in turn should be directly on the default MATLAB path. This should be</p><p>'C:\Users\&lt;user_name&gt;\Documents\MATLAB'</p><p>or similar. Type 'userpath' at the command line to check.</p><h2 id="2">Functionality</h2><p>
+  </style></head><body><div class="content"><h1>Coupled Mode Laser Pairs</h1><!--introduction--><p>The set of routines in this directory implements the coupled mode model for a pair of laterally coupled slab waveguides [1].</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Important note</a></li><li><a href="#2">Functionality</a></li><li><a href="#3">Rate equations</a></li><li><a href="#7">Example code</a></li><li><a href="#14">References</a></li></ul></div><h2 id="1">Important note</h2><p>Several routines call utility functions defined in the  'Numeric' directory. It is important that the relative location of this directory is correct, as the routines that call these functions attempt to add the directory to the path if it is not already on it.</p><p>Both the 'Numeric' and 'Coupled Mode Twin' directorie should therefore be in the 'Photonic-Neurons' directory, which in turn should be directly on the default MATLAB path. This should be</p><p>'C:\Users\&lt;user_name&gt;\Documents\MATLAB'</p><p>or similar. Type 'userpath' at the command line to check.</p><h2 id="2">Functionality</h2><p>
 <table><th>Routine</th><th>Notes</th><tr>
 <tr><td><a href='coupled1D.html'>coupled1D</a></td><td>Implements the
 rate equations for the model. Used in conjuction with the Runge-Kutta
@@ -120,7 +120,7 @@ N0 = transpose(N0); <span class="comment">% Transpose array to be in 5 x 1 form<
 % directory to the path if it is not already on it.
 % 
 % Both the 'Numeric' and 'Coupled Mode Twin' directorie should therefore be
-% in the 'Photonic Neurons' directory, which in turn should be directly on
+% in the 'Photonic-Neurons' directory, which in turn should be directly on
 % the default MATLAB path. This should be
 %
 % 	'C:\Users\<user_name>\Documents\MATLAB'  

@@ -11,7 +11,7 @@
 % directory to the path if it is not already on it.
 % 
 % Both the 'Numeric' and 'Coupled Mode Twin' directorie should therefore be
-% in the 'Photonic Neurons' directory, which in turn should be directly on
+% in the 'Photonic-Neurons' directory, which in turn should be directly on
 % the default MATLAB path. This should be
 %
 % 	'C:\Users\<user_name>\Documents\MATLAB'  

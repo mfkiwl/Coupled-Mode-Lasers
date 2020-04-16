@@ -87,7 +87,7 @@ neff        <span class="string">the</span> <span class="string">effective</span
      trapezoid1D     1D integration routine*</pre><pre class="language-matlab">*Note that <span class="string">both</span> <span class="string">bisect</span> <span class="string">and</span> <span class="string">trapezoid</span> <span class="string">are</span> <span class="string">in</span> <span class="string">the</span> <span class="string">'Numeric'</span> <span class="string">directory.</span>
 The <span class="string">routine</span> <span class="string">checks</span> <span class="string">to</span> <span class="string">see</span> <span class="string">if</span> <span class="string">this</span> <span class="string">are</span> <span class="string">on</span> <span class="string">the</span> <span class="string">path</span> <span class="string">and</span> <span class="string">if</span> <span class="string">not</span>, attempts
 to <span class="string">add</span> <span class="string">it.</span> <span class="string">For</span> <span class="string">this</span> <span class="string">to</span> <span class="string">work</span>, the <span class="string">'Numeric'</span> <span class="string">directory</span> <span class="string">MUST</span> <span class="string">be</span> <span class="string">in</span> <span class="string">a</span>
-folder <span class="string">called</span> <span class="string">'Photonic Neurons'</span>, which <span class="string">should</span> <span class="string">be</span> <span class="string">on</span> <span class="string">the</span> <span class="string">MATLAB</span> <span class="string">path</span>
+folder <span class="string">called</span> <span class="string">'Photonic-Neurons'</span>, which <span class="string">should</span> <span class="string">be</span> <span class="string">on</span> <span class="string">the</span> <span class="string">MATLAB</span> <span class="string">path</span>
 </pre><pre>     'C:\Users\&lt;user_name&gt;\Documents\MATLAB'</pre><pre class="language-matlab">or <span class="string">similar.</span> <span class="string">Type</span> <span class="string">'userpath'</span> <span class="string">at</span> <span class="string">the</span> <span class="string">command</span> <span class="string">line</span> <span class="string">to</span> <span class="string">check.</span>
 </pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
@@ -141,7 +141,7 @@ function [GAA, eta, mode, neff] = singleSlab(k0, n1, n2, w, d, varargin)
 %   *Note that both bisect and trapezoid are in the 'Numeric' directory.
 %   The routine checks to see if this are on the path and if not, attempts
 %   to add it. For this to work, the 'Numeric' directory MUST be in a
-%   folder called 'Photonic Neurons', which should be on the MATLAB path
+%   folder called 'Photonic-Neurons', which should be on the MATLAB path
 %
 %       'C:\Users\<user_name>\Documents\MATLAB'  
 %
@@ -176,7 +176,7 @@ function [GAA, eta, mode, neff] = singleSlab(k0, n1, n2, w, d, varargin)
     if (exist('bisect','file') ~= 2)
 
         % Folder containing bisect.m
-        addpath([userpath '/Photonic Neurons/Numeric']); 
+        addpath([userpath '/Photonic-Neurons/Numeric']); 
 
     end
 

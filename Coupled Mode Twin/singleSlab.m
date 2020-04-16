@@ -48,7 +48,7 @@ function [GAA, eta, mode, neff] = singleSlab(k0, n1, n2, w, d, varargin)
 %   *Note that both bisect and trapezoid are in the 'Numeric' directory.
 %   The routine checks to see if this are on the path and if not, attempts
 %   to add it. For this to work, the 'Numeric' directory MUST be in a
-%   folder called 'Photonic Neurons', which should be on the MATLAB path
+%   folder called 'Photonic-Neurons', which should be on the MATLAB path
 %
 %       'C:\Users\<user_name>\Documents\MATLAB'  
 %
