@@ -11,12 +11,6 @@ C:\Users\<user_name>\Documents\MATLAB
 
 Type 'userpath' at the MATLAB command line to check.
 
-### Possible issues:
-The GitHub repository was created with a hyphen in the name, whereas in the
-original local repository, the directory name had a space. If run-time errors
-occur indicating that the path / directory was not found, the files should be
-edited to change the space to a hyphen.
-
 ## USER GUIDE:
 The 'Coupled Mode Twin' should have a sub-directory called 'html'. From 
 within MATLAB, double-click on the 'CoupledMode.html' file. This opens a 
