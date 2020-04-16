@@ -4,7 +4,7 @@ Matlab routines for laser dynamics.
 ## INSTALLATION NOTES:
 For these routines to work properly, both the 'Coupled Mode Twin' directory
 and the 'Numeric' directory should be in a directory called 
-'Photonic Neurons' on the default MATLAB path. This is usually something
+'Photonic-Neurons' on the default MATLAB path. This is usually something
 like:
 
 C:\Users\<user_name>\Documents\MATLAB
