@@ -67,7 +67,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Coupled Mode Laser Pairs</h1><!--introduction--><p>The set of routines in this directory implements the coupled mode model for a pair of laterally coupled slab waveguides [1].</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Important note</a></li><li><a href="#2">Functionality</a></li><li><a href="#3">Rate equations</a></li><li><a href="#7">Example code</a></li><li><a href="#14">References</a></li></ul></div><h2 id="1">Important note</h2><p>Several routines call utility functions defined in the  'Numeric' directory. It is important that the relative location of this directory is correct, as the routines that call these functions attempt to add the directory to the path if it is not already on it.</p><p>Both the 'Numeric' and 'Coupled Mode Twin' directorie should therefore be in the 'Photonic-Neurons' directory, which in turn should be directly on the default MATLAB path. This should be</p><p>'C:\Users\&lt;user_name&gt;\Documents\MATLAB'</p><p>or similar. Type 'userpath' at the command line to check.</p><h2 id="2">Functionality</h2><p>
+  </style></head><body><div class="content"><h1>Coupled Mode Laser Pairs</h1><!--introduction--><p>The set of routines in this directory implements the coupled mode model for a pair of laterally coupled slab waveguides [1].</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Important note</a></li><li><a href="#2">Functionality</a></li><li><a href="#3">Rate equations</a></li><li><a href="#7">Example code</a></li><li><a href="#13">References</a></li></ul></div><h2 id="1">Important note</h2><p>Several routines call utility functions defined in the  'Numeric' directory. It is important that the relative location of this directory is correct, as the routines that call these functions attempt to add the directory to the path if it is not already on it.</p><p>Both the 'Numeric' and 'Coupled Mode Twin' directorie should therefore be in the 'Photonic-Neurons' directory, which in turn should be directly on the default MATLAB path. This should be</p><p>'C:\Users\&lt;user_name&gt;\Documents\MATLAB'</p><p>or similar. Type 'userpath' at the command line to check.</p><h2 id="2">Functionality</h2><p>
 <table><th>Routine</th><th>Notes</th><tr>
 <tr><td><a href='coupled1D.html'>coupled1D</a></td><td>Implements the
 rate equations for the model. Used in conjuction with the Runge-Kutta
@@ -104,8 +104,9 @@ opt = 1;    <span class="comment">% Optional parameter for 'runCoupled1D.m' to p
 </table>
 </p><p>We may set up such an array using the steady state values at the end of the simulation carried out above, using</p><pre class="codeinput">N0 = Nout(end,:);   <span class="comment">% End values of simulation</span>
 N0 = transpose(N0); <span class="comment">% Transpose array to be in 5 x 1 form</span>
-</pre><p>The runCoupled1D routine may now be called using</p><pre class="codeinput">[tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, opt, N0);
-</pre><p>Note that y-axis scales may now need scaling, as the default scale will be to the resolution of the numerical noise.</p><h2 id="14">References</h2><p>[1] M. J. Adams, N. Li, B. R. Cemlyn, H. Susanto and I. D. Henning, Phys. Rev. A 95(5), 053869 (2017)</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+</pre><p>The runCoupled1D routine may now be called using</p><pre class="codeinput">opt = 0;    <span class="comment">% Do not plot graphs this time</span>
+[tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, opt, N0);
+</pre><h2 id="13">References</h2><p>[1] M. J. Adams, N. Li, B. R. Cemlyn, H. Susanto and I. D. Henning, Phys. Rev. A 95(5), 053869 (2017)</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Coupled Mode Laser Pairs
 %
@@ -239,12 +240,9 @@ N0 = transpose(N0); % Transpose array to be in 5 x 1 form
 %%
 % The runCoupled1D routine may now be called using
 %
-
+opt = 0;    % Do not plot graphs this time
 [tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, opt, N0);
 
-%%
-% Note that y-axis scales may now need scaling, as the default scale will
-% be to the resolution of the numerical noise.
 
 %% References
 % [1] M. J. Adams, N. Li, B. R. Cemlyn, H. Susanto and I. D. Henning, Phys.

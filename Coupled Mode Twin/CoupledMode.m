@@ -130,12 +130,9 @@ N0 = transpose(N0); % Transpose array to be in 5 x 1 form
 %%
 % The runCoupled1D routine may now be called using
 %
-
+opt = 0;    % Do not plot graphs this time
 [tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, opt, N0);
 
-%%
-% Note that y-axis scales may now need scaling, as the default scale will
-% be to the resolution of the numerical noise.
 
 %% References
 % [1] M. J. Adams, N. Li, B. R. Cemlyn, H. Susanto and I. D. Henning, Phys.
