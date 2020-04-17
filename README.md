@@ -1,13 +1,13 @@
 # Overlap Factor Model
-Matlab routines for laser dynamics.
+Matlab routines for laser dynamics. Currently only routines for the coupled mode model have been added. 
 
 ## INSTALLATION NOTES:
 For these routines to work properly, both the 'Coupled Mode Twin' directory
 and the 'Numeric' directory should be in a directory called 
-'Photonic-Neurons' on the default MATLAB path. This is usually something
+'Overlap-Factor-Model' on the default MATLAB path. This is usually something
 like:
 
-C:\Users\<user_name>\Documents\MATLAB
+    C:\Users\<user_name>\Documents\MATLAB
 
 Type 'userpath' at the MATLAB command line to check.
 
