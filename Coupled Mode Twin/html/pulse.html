@@ -1,0 +1,355 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pulse simulation</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-04-22"><meta name="DC.source" content="pulse.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pulse simulation</h1><!--introduction--><p>Simple implementation of pulse behaviour</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Code</a></li></ul></div><h2 id="1">Code</h2><p>First load the laser parameters (these include the width of the guide)</p><pre class="codeinput">param = loadParams(<span class="string">'PRA_95_053869'</span>);  <span class="comment">% Laser cavity parameters using in Ref [1]</span>
+</pre><p>The param structure contains the following fields. Uncomment and edit the line if you want to change any of the values</p><p>param.aH = 2;             % Linewidth enhancement factor param.k0 = 4.8332;        % Free-space wavevector (1/micron) param.kp = 326.7974;      % Cavity loss rate 1/(2*tau_p) (1/ns) param.n1 = 3.400971;      % Refractive index in core param.n2 = 3.4;           % Refractive index in cladding param.w = 8;              % Cavity width (micron) param.yn = 1;             % 1/tau_N, where tau_N is the carrier lifetime</p><p>Next, set the operating conditions and simulation time (edit this as necessary)</p><pre class="codeinput">tsim1 = 50; <span class="comment">% Simulation time (in units of 1/yn)</span>
+QA = 10;    <span class="comment">% Normalised pump power in laser A</span>
+QB = 10;    <span class="comment">% Normalised pump power in laser B</span>
+d = 16;     <span class="comment">% Distance between guides (microns)</span>
+DW = 0;     <span class="comment">% Frequency detuning</span>
+
+opt = 0;    <span class="comment">% Do not plot graphs</span>
+</pre><p>Call the routine to calculate temporal dynamics. Note that this routine calls the routine 'singleSlab', which calculates the coupling coefficent (real only) for the guides with the refractive index steps (n1 and n2), width (w) andedge-to-edge separation (d) specified above.</p><pre class="codeinput">[tout1, Nout1] = runCoupled1D(tsim1, QA, QB, d, DW, param, opt);
+</pre><pre class="codeoutput"> 
+22-Apr-2020 15:27:27
+ 
+Coupled cavity model: d/a = 2
+ 
+Guide parameters:
+k0 = 4.8332 - free-space wavevector (rad/micron)
+n1 = 3.401 - refractive index in guides
+n2 = 3.4 - refractive index outside guides
+d = 16 - distance between guides (microns)
+w = 8 - width of guides (microns)
+|eta| = 0.53383 - coupling coefficient (modulus)
+theta = 0 - coupling coefficient (argument)
+DW = 0 - frequency detuning
+ 
+General parameters:
+kp = 326.7974 - the cavity loss rate (ns^-1)
+aH = 2 - linewidth enhancement factor
+yn = 1 - recombination rate (ns^-1)
+ 
+Individual guide parameters:
+QA = 10 - total pump power in guide (1)
+QB = 10 - total pump power in guide (2)
+ 
+Simulation time = 50/yn = 50 ns
+ 
+At end of simulation:
+N(1) = 1
+N(2) = 1
+A_{1} = 3
+A_{2} = 3
+phi = 3.1416
+ 
+Derivatives:
+dN1/dt = 4.9147e-05
+dN2/dt = -4.9147e-05
+dA1/dt = 0.00043143
+dA2/dt = -0.00043141
+dphi/dt = 0.00060661
+</pre><p>This runs the simulation for tsim*tau_N nanoseconds.</p><p>Next, save the dynamic variables at the end of the simulation to use as initial values for the next run.</p><pre class="codeinput">N0 = Nout1(end,:);   <span class="comment">% End values of simulation</span>
+N0 = transpose(N0); <span class="comment">% Transpose array to be in 5 x 1 form</span>
+</pre><p>Enter new simulation and pump values (edit these)</p><pre class="codeinput">t_pulse = 3;           <span class="comment">% Simulation time (short pulse)</span>
+QA_pulse = 20;      <span class="comment">% Normalised pump power in laser A</span>
+QB_pulse = 5;       <span class="comment">% Normalised pump power in laser B</span>
+</pre><p>Call runCoupled1D again, this time with intial values and pulse pump</p><pre class="codeinput">[tout2, Nout2] = runCoupled1D(t_pulse, QA_pulse, QB_pulse, d, DW, param, opt, N0);
+</pre><pre class="codeoutput"> 
+22-Apr-2020 15:27:28
+ 
+Coupled cavity model: d/a = 2
+ 
+Guide parameters:
+k0 = 4.8332 - free-space wavevector (rad/micron)
+n1 = 3.401 - refractive index in guides
+n2 = 3.4 - refractive index outside guides
+d = 16 - distance between guides (microns)
+w = 8 - width of guides (microns)
+|eta| = 0.53383 - coupling coefficient (modulus)
+theta = 0 - coupling coefficient (argument)
+DW = 0 - frequency detuning
+ 
+General parameters:
+kp = 326.7974 - the cavity loss rate (ns^-1)
+aH = 2 - linewidth enhancement factor
+yn = 1 - recombination rate (ns^-1)
+ 
+Individual guide parameters:
+QA = 20 - total pump power in guide (1)
+QB = 5 - total pump power in guide (2)
+ 
+Simulation time = 3/yn = 3 ns
+ 
+At end of simulation:
+N(1) = 1.0002
+N(2) = 0.99815
+A_{1} = 4.3584
+A_{2} = 1.9984
+phi = 2.8302
+ 
+Derivatives:
+dN1/dt = -0.00052842
+dN2/dt = 0.015637
+dA1/dt = 5.0145e-05
+dA2/dt = -0.49861
+dphi/dt = 0.48713
+</pre><p>Again, get end values for initial values of next run</p><pre class="codeinput">N0 = Nout2(end,:);   <span class="comment">% End values of simulation</span>
+N0 = transpose(N0); <span class="comment">% Transpose array to be in 5 x 1 form</span>
+</pre><p>Enter new simulation time</p><pre class="codeinput">tsim2 = tsim1 - t_pulse;    <span class="comment">% Total simulation time will be 2*tsim1</span>
+
+<span class="comment">% Call runCoupled1D one more time with original pump values</span>
+
+[tout3, Nout3] = runCoupled1D(tsim2, QA, QB, d, DW, param, opt, N0);
+</pre><pre class="codeoutput"> 
+22-Apr-2020 15:27:28
+ 
+Coupled cavity model: d/a = 2
+ 
+Guide parameters:
+k0 = 4.8332 - free-space wavevector (rad/micron)
+n1 = 3.401 - refractive index in guides
+n2 = 3.4 - refractive index outside guides
+d = 16 - distance between guides (microns)
+w = 8 - width of guides (microns)
+|eta| = 0.53383 - coupling coefficient (modulus)
+theta = 0 - coupling coefficient (argument)
+DW = 0 - frequency detuning
+ 
+General parameters:
+kp = 326.7974 - the cavity loss rate (ns^-1)
+aH = 2 - linewidth enhancement factor
+yn = 1 - recombination rate (ns^-1)
+ 
+Individual guide parameters:
+QA = 10 - total pump power in guide (1)
+QB = 10 - total pump power in guide (2)
+ 
+Simulation time = 47/yn = 47 ns
+ 
+At end of simulation:
+N(1) = 1
+N(2) = 1
+A_{1} = 3
+A_{2} = 3
+phi = 3.1416
+ 
+Derivatives:
+dN1/dt = -6.2578e-05
+dN2/dt = 6.2579e-05
+dA1/dt = -0.00050992
+dA2/dt = 0.00050992
+dphi/dt = -0.00071966
+</pre><p>Concatonate time and dynamic variables together</p><pre class="codeinput">t1 = tout1(end);        <span class="comment">% End time of tout1</span>
+tout2 = tout2 + t1;     <span class="comment">% Add to tout2</span>
+t2 = tout2(end);        <span class="comment">% End time of tout2</span>
+tout3 = tout3 + t2;     <span class="comment">% Add to tout3</span>
+
+t = cat(1, tout1, tout2, tout3);
+N = cat(1, Nout1, Nout2, Nout3);
+</pre><p>Output values (uncomment any others you want to plot) MA  = N(:,1); MB  = N(:,2);</p><pre class="codeinput">YA  = N(:,3);
+YB  = N(:,4);
+<span class="comment">% phi = N(:,5);</span>
+</pre><p>Calculate intensities from optical fields</p><pre class="codeinput">IA = YA.*YA;
+IB = YB.*YB;
+</pre><p>Plot results</p><pre class="codeinput">lw = 1.5;       <span class="comment">% graph linewidth</span>
+figure;
+hold <span class="string">on</span>;
+plot(t, IA, <span class="string">'LineWidth'</span>, lw);
+plot(t, IB, <span class="string">'LineWidth'</span>, lw);
+title(<span class="string">'Intensities'</span>);
+ylabel(<span class="string">'Optical intensity'</span>);
+xlabel(<span class="string">'Simulation time (\tau_{N})'</span>);
+legend(<span class="string">'I_{1}'</span>,<span class="string">'I_{2}'</span>);
+grid <span class="string">on</span>;
+</pre><img vspace="5" hspace="5" src="pulse_01.png" alt=""> <p>Zoom in on pulse</p><pre class="codeinput">xlim([47 56]);
+</pre><img vspace="5" hspace="5" src="pulse_02.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Pulse simulation
+%
+% Simple implementation of pulse behaviour
+%
+%% Code
+%
+% First load the laser parameters (these include the width of the guide)
+
+param = loadParams('PRA_95_053869');  % Laser cavity parameters using in Ref [1]
+
+%% 
+% The param structure contains the following fields. Uncomment and edit the
+% line if you want to change any of the values
+%
+% param.aH = 2;             % Linewidth enhancement factor
+% param.k0 = 4.8332;        % Free-space wavevector (1/micron)
+% param.kp = 326.7974;      % Cavity loss rate 1/(2*tau_p) (1/ns)
+% param.n1 = 3.400971;      % Refractive index in core
+% param.n2 = 3.4;           % Refractive index in cladding
+% param.w = 8;              % Cavity width (micron)
+% param.yn = 1;             % 1/tau_N, where tau_N is the carrier lifetime
+
+%%
+% Next, set the operating conditions and simulation time (edit this as
+% necessary)
+
+tsim1 = 50; % Simulation time (in units of 1/yn)
+QA = 10;    % Normalised pump power in laser A
+QB = 10;    % Normalised pump power in laser B
+d = 16;     % Distance between guides (microns)
+DW = 0;     % Frequency detuning
+
+opt = 0;    % Do not plot graphs 
+%%
+% Call the routine to calculate temporal dynamics. Note that this routine
+% calls the routine 'singleSlab', which calculates the coupling coefficent
+% (real only) for the guides with the refractive index steps (n1 and n2), 
+% width (w) andedge-to-edge separation (d) specified above.
+
+[tout1, Nout1] = runCoupled1D(tsim1, QA, QB, d, DW, param, opt); 
+
+%%
+% This runs the simulation for tsim*tau_N nanoseconds.
+%
+% Next, save the dynamic variables at the end of the simulation to use as
+% initial values for the next run.
+
+N0 = Nout1(end,:);   % End values of simulation
+N0 = transpose(N0); % Transpose array to be in 5 x 1 form
+
+%%
+% Enter new simulation and pump values (edit these)
+
+t_pulse = 3;           % Simulation time (short pulse)
+QA_pulse = 20;      % Normalised pump power in laser A
+QB_pulse = 5;       % Normalised pump power in laser B
+
+%%
+% Call runCoupled1D again, this time with intial values and pulse pump
+
+[tout2, Nout2] = runCoupled1D(t_pulse, QA_pulse, QB_pulse, d, DW, param, opt, N0);
+
+%%
+% Again, get end values for initial values of next run
+
+N0 = Nout2(end,:);   % End values of simulation
+N0 = transpose(N0); % Transpose array to be in 5 x 1 form
+
+%%
+% Enter new simulation time
+
+tsim2 = tsim1 - t_pulse;    % Total simulation time will be 2*tsim1
+
+% Call runCoupled1D one more time with original pump values
+
+[tout3, Nout3] = runCoupled1D(tsim2, QA, QB, d, DW, param, opt, N0);
+
+%%
+% Concatonate time and dynamic variables together
+
+t1 = tout1(end);        % End time of tout1
+tout2 = tout2 + t1;     % Add to tout2
+t2 = tout2(end);        % End time of tout2
+tout3 = tout3 + t2;     % Add to tout3
+
+t = cat(1, tout1, tout2, tout3);
+N = cat(1, Nout1, Nout2, Nout3);
+
+%%
+% Output values (uncomment any others you want to plot)
+% MA  = N(:,1);
+% MB  = N(:,2);
+YA  = N(:,3);
+YB  = N(:,4);
+% phi = N(:,5);
+
+%%
+% Calculate intensities from optical fields
+IA = YA.*YA;
+IB = YB.*YB;
+
+%%
+% Plot results
+
+lw = 1.5;       % graph linewidth
+figure;
+hold on;
+plot(t, IA, 'LineWidth', lw);
+plot(t, IB, 'LineWidth', lw);
+title('Intensities');
+ylabel('Optical intensity');
+xlabel('Simulation time (\tau_{N})');
+legend('I_{1}','I_{2}');
+grid on;
+
+%%
+% Zoom in on pulse
+
+xlim([47 56]);
+
+##### SOURCE END #####
+--></body></html>
