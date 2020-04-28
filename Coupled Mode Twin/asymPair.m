@@ -1,7 +1,7 @@
-function [dN] = asymmPair(~, N0, param)
-%ASYMMPAIR Rate equations for the asynchronous double cavity model
+function [dN] = asymPair(~, N0, param)
+%ASYMPAIR Rate equations for the asynchronous double cavity model
 %%
-% *ASYMMPAIR*
+% *ASYMPAIR*
 %
 %%  Description
 %
@@ -9,7 +9,7 @@ function [dN] = asymmPair(~, N0, param)
 %
 %%  Usage
 %
-%    [dN] = asymmPair(t, N0, param);
+%    [dN] = asymPair(t, N0, param);
 %
 %%  Arguments
 %
