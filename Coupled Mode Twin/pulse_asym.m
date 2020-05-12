@@ -6,12 +6,10 @@
 %
 % First load the laser parameters (these include the width of the guide)
 
-% param = loadParams('PRA_95_053869');  % Laser cavity parameters using in Ref [1]
-
 %% 
-% The param structure contains the following fields. Uncomment and edit the
+% The param structure contains the following fields. Edit the
 % line if you want to change any of the values
-%
+
 param.aH = 2;             % Linewidth enhancement factor
 param.k0 = 4.8332;        % Free-space wavevector (1/micron)
 param.kp = 326.7974;      % Cavity loss rate 1/(2*tau_p) (1/ns)
@@ -24,11 +22,13 @@ param.yn = 1;             % 1/tau_N, where tau_N is the carrier lifetime
 % Next, set the operating conditions and simulation time (edit this as
 % necessary)
 
-tsim1 = 50; % Simulation time (in units of 1/yn)
-QA = 10;    % Normalised pump power in laser A
-QB = 10;    % Normalised pump power in laser B
-d = 16;     % Distance between guides (microns)
-DW = 0;     % Frequency detuning
+tsim1 = 50;         % Simulation time (in units of 1/yn)
+QA = 10;            % Normalised pump power in laser A
+QB = 10;            % Normalised pump power in laser B
+etaAB = 0.53383;    % Amplitude of coupling coefficient of B laser in dYA/dt
+etaBA = 0.53383;    % Amplitude of coupling coefficient of A laser in dYB/dt
+theta = 0.0;        % Phase of complex coupling
+DW = 0;             % Frequency detuning
 
 opt = 0;    % Do not plot graphs 
 %%
@@ -37,7 +37,7 @@ opt = 0;    % Do not plot graphs
 % (real only) for the guides with the refractive index steps (n1 and n2), 
 % width (w) andedge-to-edge separation (d) specified above.
 
-[tout1, Nout1] = runCoupled1D(tsim1, QA, QB, d, DW, param, opt); 
+[tout1, Nout1] = runAsymPair(tsim1, QA, QB, etaAB, etaBA, theta, DW, param, opt);
 
 %%
 % This runs the simulation for tsim*tau_N nanoseconds.
@@ -58,7 +58,7 @@ QB_pulse = 5;       % Normalised pump power in laser B
 %%
 % Call runCoupled1D again, this time with intial values and pulse pump
 
-[tout2, Nout2] = runCoupled1D(t_pulse, QA_pulse, QB_pulse, d, DW, param, opt, N0);
+[tout2, Nout2] = runAsymPair(t_pulse, QA_pulse, QB_pulse, etaAB, etaBA, theta, DW, param, opt, N0);
 
 %%
 % Again, get end values for initial values of next run
@@ -73,7 +73,7 @@ tsim2 = tsim1 - t_pulse;    % Total simulation time will be 2*tsim1
 
 % Call runCoupled1D one more time with original pump values
 
-[tout3, Nout3] = runCoupled1D(tsim2, QA, QB, d, DW, param, opt, N0);
+[tout3, Nout3] = runAsymPair(tsim2, QA, QB, etaAB, etaBA, theta, DW, param, opt, N0);
 
 %%
 % Concatonate time and dynamic variables together

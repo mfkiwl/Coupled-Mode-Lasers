@@ -33,5 +33,12 @@ Still need to look at and re-document
 Then need to find some test parameters for a script file.
 
 Would be good to add in some boundary tracing programs.
+
+21/04/20
+Ian managed to download the remote repository and is now working on his local copy.
    
+22/04/20
+Wrote a new script 'pulse.m' to help Ian with running simulations.
+
+Created new 'testing' branch
 
