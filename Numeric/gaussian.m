@@ -32,16 +32,6 @@ function [r1, r2] = gaussian(nsize)
     disp(['var = ' num2str(var)])
     disp(['covar = ' num2str(covar)])
     
-    local(1);
-    
-    
-    function local(n)
-        
-        x1 = r1(n);
-        
-        disp(x1)
-        
-    end
 
 
 
