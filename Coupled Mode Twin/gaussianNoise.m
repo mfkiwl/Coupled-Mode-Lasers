@@ -172,7 +172,7 @@ function [tout, Nout] = gaussianNoise(tsim, QA, QB, etaAB, etaBA, theta, DW, par
         xiB = randn(Npt, 1);
 
         % Numerical factors
-        beta_sp = 2.0e-15;      % Spontaneous emission factor
+        beta_sp = 2.0e-5;       % Spontaneous emission factor
         c = 29.9792458;         % Speed of light (cm/ns)
         a_diff = 1e-15;         % Differential gain (cm^2)
         N_0 = 1e18;             % Transparency carrier concentration (cm^-3)
