@@ -30,8 +30,8 @@ etaBA = 0.53383;    % Amplitude of coupling coefficient of A laser in dYB/dt
 theta = 0.0;        % Phase of complex coupling
 DW = 0;             % Frequency detuning
 
-opt = 0;            % Do NOT plot graphs, do NOT zero out noise 
-%opt = 1;            % DO plot graphs, do not zero out noise
+%opt = 0;            % Do NOT plot graphs, do NOT zero out noise 
+opt = 1;            % DO plot graphs, do not zero out noise
 %opt = 2;            % Do NOT plot graphs, DO zero out noise
 %opt = 3;            % DO plot graphs, DO zero out noise            
 %%

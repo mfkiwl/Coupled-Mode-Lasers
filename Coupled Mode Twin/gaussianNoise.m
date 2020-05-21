@@ -163,7 +163,7 @@ function [tout, Nout] = gaussianNoise(tsim, QA, QB, etaAB, etaBA, theta, DW, par
 
     if not(zero)
         
-        % Create time arrays, with zeros between fluctuations
+        % Create time arrays
         seed1 = 1;
         seed2 = 2;
         rng(seed1);
@@ -391,7 +391,7 @@ function [tout, Nout] = gaussianNoise(tsim, QA, QB, etaAB, etaBA, theta, DW, par
         figure
         plot(test_t, xiA, test_t, xiB)
         grid on
-        title(['Noise terms (<\xi_{A}|\xi_{B}> = ' num2str(xiAB) ')'])
+        title(['\Delta T = ' num2str(DT) ' ns'])
         legend('\xi_{A}', '\xi_{B}')
         xlabel('time (ns)')
 
