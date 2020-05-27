@@ -26,8 +26,8 @@ function [tout1, tout2, Nout1, Nout2] = RK4_test(tsim, DT)
     hold on
     title('ode45')
     plot(tout1, Nout1(:,1))
-    plot(tout1, Nout1(:,2))
-    plot(tout1, Nout1(:,3))
+%     plot(tout1, Nout1(:,2))
+%     plot(tout1, Nout1(:,3))
     grid on
     
     [tout2, Nout2] = RK4(odefun, N0, mint, maxt, DT);
@@ -36,8 +36,8 @@ function [tout1, tout2, Nout1, Nout2] = RK4_test(tsim, DT)
     hold on
     title('RK4')
     plot(tout2, Nout2(:,1))
-    plot(tout2, Nout2(:,2))
-    plot(tout2, Nout2(:,3))
+%     plot(tout2, Nout2(:,2))
+%     plot(tout2, Nout2(:,3))
     grid on
     
     return
@@ -51,10 +51,17 @@ function [tout1, tout2, Nout1, Nout2] = RK4_test(tsim, DT)
         dN = zeros(size(N0));
         
         % dy1/dt
-        dN(1) = sin(t);
+        if (t > 50)
+            dN(1) = 1;
+            
+        else
+            
+            dN(1) = 0;
+            
+        end
         
         % dy2/dt
-        dN(2) = cos(t);
+        dN(2) = 0;
         
         % dy3/dt
         dN(3) = 0;

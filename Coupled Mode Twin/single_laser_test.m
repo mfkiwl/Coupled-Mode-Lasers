@@ -8,6 +8,10 @@ if (exist('RK4','file') ~= 2)
 
 end
 
+%% Test of fixed-step RK routine
+DT = 0.001;      % Edit this...
+DT = DT/yn;     % ... not this!
+
 %% Run simulation using MATLAB RK solver
 
 % Simulation time (multiple of 1/yn)
@@ -42,16 +46,14 @@ tspan = t0:dt:t1;
 
 odefun = @(t, N) single1D(t, N, param); % Anonymous handle to function
 
-reltol = 1E-6;
-options = odeset('RelTol', reltol);
+options = odeset('MaxStep', DT);
+%options = odeset('MaxStep', 20*DT);
 
 % Runge-Kutta implementation
 [tout1, Nout1] = ode45(odefun, tspan, N0, options); 
 
 
-%% Test of fixed-step RK routine
-DT = 0.001;      % Edit this...
-DT = DT/yn;     % ... not this!
+
 
 [tout2, Nout2] = RK4(odefun, N0, t0, t1, DT);
 
