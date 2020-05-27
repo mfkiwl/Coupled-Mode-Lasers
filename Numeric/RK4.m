@@ -1,4 +1,4 @@
-function [Nout, t] = RK4(func, Nin, t0, t1, dt, varargin)
+function [t, Nout] = RK4(func, Nin, t0, t1, dt, varargin)
 %RK4 Implementation of a 4th order Runge Kutta solver for a fixed time step
 %
 %Syntax:
@@ -65,13 +65,16 @@ function [Nout, t] = RK4(func, Nin, t0, t1, dt, varargin)
     % Set up time array
     t = t0:dt:t1;
     
+    % Transpose time array
+    t = transpose(t);
+    
     % Set up output array
     Nout = zeros(npts, nvar);
     
     % Set initial values
     Nout(1,:) = Nin;
     
-    for n = 1:Npts-1
+    for n = 1:npts-1
         
         % Calculate next step via RK4
         N0 = Nout(n,:);
