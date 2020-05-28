@@ -50,6 +50,8 @@ function [tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, varargin)
 %                       N0(4)   Optical amplitude in guide B
 %                       N0(5)   Relative phase between fields in A and B
 %
+%                   opt(3)  optional step size for using fixed step RK
+%                           routine
 %%  Returns
 % 
 %   Nout        4001 x 5 array containing the time evolution of variables

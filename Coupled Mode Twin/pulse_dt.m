@@ -8,7 +8,7 @@
 
 % param = loadParams('PRA_95_053869');  % Laser cavity parameters using in Ref [1]
 
-% Step size
+% Step size (set to zero or less to use built-in routine)
 DT = 0.001;
 
 %% 
