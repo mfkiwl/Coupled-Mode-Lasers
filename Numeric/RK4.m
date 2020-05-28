@@ -1,22 +1,44 @@
-function [t, Nout] = RK4(func, Nin, t0, t1, dt, varargin)
-%RK4 Implementation of a 4th order Runge Kutta solver for a fixed time step
+function [t, Nout] = RK4(func, Nin, t0, t1, dt)
+%  RK4 Implementation of a 4th order Runge Kutta solver using a fixed time step
+%%
+% *RK4*
 %
-%Syntax:
+%%  Description
 %
-%	[Nout, t] = RK4(func, Nin, t0, t1, dt, [varargin]);
+% This routine solves a set of differential equations using a 4th order
+% Runge Kutta solver with a fixed step size.
 %
-%Arguments:
+%%  Usage
 %
-%	func        Function handle (passed via func = @somefunction)
-%   Nin         Array of initial values (npts X nvar)
-%   t0          Initial time
-%   t1          Final time
-%   dt          Time step
+%  [Nout, t] = RK4(func, Nin, t0, t1, dt);
 %
-%Return values:
+%%  Arguments
 %
-%   Nout        Solution array
-%   t           Time array
+%  func        Function handle (passed via func = @somefunction)
+%  Nin         1 x nvar array of initial values (nvar is the number of variables)
+%  t0          Initial time
+%  t1          Final time
+%  dt          Time step
+%
+%%  Returns
+%
+%  Nout        npts x nvar solution array (npts is the number of
+%              computational points)
+%  t           npts x 1 array of time points
+%
+%%  Notes
+%
+% To use this function in a routine, the 'Numeric' directory must be on the
+% path. To ensure this, use the following code snippet in the calling
+% routine:
+%
+% if (exist('RK4','file') ~= 2)
+%
+%    addpath([userpath '/Overlap-Factor-Model/Numeric']); 
+%
+% end
+%
+%%  Code
 
     % Test if func is a function handle
     if (not(isa(func, 'function_handle')))

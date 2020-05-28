@@ -1,7 +1,7 @@
-function [tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, varargin)
-% RUNCOUPLED1D Runs the temporal evolution of the coupled guide dynamics 
+function [tout, Nout] = runCoupled1D_dt(tsim, QA, QB, d, DW, param, varargin)
+% RUNCOUPLED1D_DT Runs the temporal evolution of the coupled guide dynamics 
 %%
-% *RUNCOUPLED1D*
+% *RUNCOUPLED1D_DT*
 %
 %%  Description
 %
@@ -51,10 +51,10 @@ function [tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, varargin)
 %                       N0(5)   Relative phase between fields in A and B
 %
 %                   opt(3)  optional step size for using fixed step RK
-%                           routine
+%                           routine (uses ode45 if not passed or >= 0)
 %%  Returns
 % 
-%   Nout        4001 x 5 array containing the time evolution of variables
+%   Nout        npts x 5 array containing the time evolution of variables
 %
 %                   Nout(:,1)   Carrier concentration in guide A
 %                   Nout(:,2)   Carrier concentration in guide B
@@ -62,7 +62,7 @@ function [tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, varargin)
 %                   Nout(:,4)   Optical amplitude in guide B
 %                   Nout(:,5)   Relative phase between fields in A and B
 %
-%   tout        4001 x 1 array of corresponding time values
+%   tout        npts x 1 array of corresponding time values
 %
 %%  Dependencies
 %
@@ -72,6 +72,13 @@ function [tout, Nout] = runCoupled1D(tsim, QA, QB, d, DW, param, varargin)
 %       <coupled1D.html coupled1D> - the model rate equations
 %
 %%
+
+    if (exist('RK4','file') ~= 2)
+
+        % Folder containing RK4.m
+        addpath([userpath '/Overlap-Factor-Model/Numeric']); 
+
+    end
 
     % Flag to plot graphs
     plotgraphs = false;

@@ -1,0 +1,265 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>RK4</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-05-28"><meta name="DC.source" content="RK4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#4">Description</a></li><li><a href="#5">Usage</a></li><li><a href="#6">Arguments</a></li><li><a href="#7">Returns</a></li><li><a href="#8">Notes</a></li><li><a href="#9">Code</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> [t, Nout] = RK4(func, Nin, t0, t1, dt)
+</pre><pre class="codeinput"><span class="comment">%  RK4 Implementation of a 4th order Runge Kutta solver using a fixed time step</span>
+</pre><p><b>RK4</b></p><h2 id="4">Description</h2><p>This routine solves a set of differential equations using a 4th order Runge Kutta solver with a fixed step size.</p><h2 id="5">Usage</h2><pre>[Nout, t] = RK4(func, Nin, t0, t1, dt);</pre><h2 id="6">Arguments</h2><pre>func        Function handle (passed via func = @somefunction)
+Nin         1 x nvar array of initial values (nvar is the number of variables)
+t0          Initial time
+t1          Final time
+dt          Time step</pre><h2 id="7">Returns</h2><pre>Nout        npts x nvar solution array (npts is the number of
+            computational points)
+t           npts x 1 array of time points</pre><h2 id="8">Notes</h2><p>To use this function in a routine, the 'Numeric' directory must be on the path. To ensure this, use the following code snippet in the calling routine:</p><p>if (exist('RK4','file') ~= 2)</p><pre>  addpath([userpath '/Overlap-Factor-Model/Numeric']);</pre><p>end</p><h2 id="9">Code</h2><pre class="codeinput">    <span class="comment">% Test if func is a function handle</span>
+    <span class="keyword">if</span> (not(isa(func, <span class="string">'function_handle'</span>)))
+
+        error(<span class="string">'First argument to RK4 is not a function handle'</span>)
+
+    <span class="keyword">end</span>
+
+    <span class="comment">% Get dimensions of input array</span>
+    s = size(Nin);
+
+    <span class="keyword">if</span> (length(s) &gt; 2)
+
+        error(<span class="string">'Input array must be one dimensional'</span>)
+
+    <span class="keyword">end</span>
+
+    <span class="keyword">if</span> (and(not(s(1)==1),not(s(2)==1)))
+
+        error(<span class="string">'Input array must be one dimensional'</span>)
+
+    <span class="keyword">end</span>
+
+    <span class="keyword">if</span> (s(1)==1)
+
+        nvar = s(2);
+
+    <span class="keyword">else</span>
+
+        nvar = s(1);
+        <span class="comment">% Transpose array</span>
+        Nin = transpose(Nin);
+
+
+    <span class="keyword">end</span>
+
+    <span class="comment">% Set simulation time</span>
+    tsim = t1 - t0;
+
+    <span class="comment">% Number of points to calculate</span>
+    npts = ceil(abs(tsim/dt)) + 1;
+
+    <span class="comment">% Recalculate dt to make simulation time an integral multiple</span>
+    dt = tsim/(npts - 1);
+
+    <span class="comment">% Set up time array</span>
+    t = t0:dt:t1;
+
+    <span class="comment">% Transpose time array</span>
+    t = transpose(t);
+
+    <span class="comment">% Set up output array</span>
+    Nout = zeros(npts, nvar);
+
+    <span class="comment">% Set initial values</span>
+    Nout(1,:) = Nin;
+
+    <span class="keyword">for</span> n = 1:npts-1
+
+        <span class="comment">% Calculate next step via RK4</span>
+        N0 = Nout(n,:);
+        t0 = t(n);
+        k1 = func(t0, N0)*dt;
+        k2 = func(t0 + 0.5*dt, N0 + 0.5*k1)*dt;
+        k3 = func(t0 + 0.5*dt, N0 + 0.5*k2)*dt;
+        k4 = func(t0 + dt, N0 + k3)*dt;
+        Nout(n+1,:) = N0 + (k1 + 2.0*k2 + 2.0*k3 + k4)/6.0;
+
+    <span class="keyword">end</span>
+</pre><pre class="codeinput"><span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function [t, Nout] = RK4(func, Nin, t0, t1, dt)
+%  RK4 Implementation of a 4th order Runge Kutta solver using a fixed time step
+%%
+% *RK4*
+%
+%%  Description
+%
+% This routine solves a set of differential equations using a 4th order
+% Runge Kutta solver with a fixed step size.
+%
+%%  Usage
+%
+%  [Nout, t] = RK4(func, Nin, t0, t1, dt);
+%
+%%  Arguments
+%
+%  func        Function handle (passed via func = @somefunction)
+%  Nin         1 x nvar array of initial values (nvar is the number of variables)
+%  t0          Initial time
+%  t1          Final time
+%  dt          Time step
+%
+%%  Returns
+%
+%  Nout        npts x nvar solution array (npts is the number of
+%              computational points)
+%  t           npts x 1 array of time points
+%
+%%  Notes
+%
+% To use this function in a routine, the 'Numeric' directory must be on the
+% path. To ensure this, use the following code snippet in the calling
+% routine:
+%
+% if (exist('RK4','file') ~= 2)
+%
+%    addpath([userpath '/Overlap-Factor-Model/Numeric']); 
+%
+% end
+%
+%%  Code
+
+    % Test if func is a function handle
+    if (not(isa(func, 'function_handle')))
+   
+        error('First argument to RK4 is not a function handle')
+
+    end
+    
+    % Get dimensions of input array
+    s = size(Nin);
+    
+    if (length(s) > 2)
+        
+        error('Input array must be one dimensional')
+        
+    end
+    
+    if (and(not(s(1)==1),not(s(2)==1)))
+        
+        error('Input array must be one dimensional')
+        
+    end
+    
+    if (s(1)==1)
+        
+        nvar = s(2);
+        
+    else
+        
+        nvar = s(1);
+        % Transpose array
+        Nin = transpose(Nin);
+        
+        
+    end
+    
+    % Set simulation time
+    tsim = t1 - t0;
+    
+    % Number of points to calculate
+    npts = ceil(abs(tsim/dt)) + 1;
+    
+    % Recalculate dt to make simulation time an integral multiple
+    dt = tsim/(npts - 1);
+    
+    % Set up time array
+    t = t0:dt:t1;
+    
+    % Transpose time array
+    t = transpose(t);
+    
+    % Set up output array
+    Nout = zeros(npts, nvar);
+    
+    % Set initial values
+    Nout(1,:) = Nin;
+    
+    for n = 1:npts-1
+        
+        % Calculate next step via RK4
+        N0 = Nout(n,:);
+        t0 = t(n);
+        k1 = func(t0, N0)*dt; 
+        k2 = func(t0 + 0.5*dt, N0 + 0.5*k1)*dt;
+        k3 = func(t0 + 0.5*dt, N0 + 0.5*k2)*dt;
+        k4 = func(t0 + dt, N0 + k3)*dt;
+        Nout(n+1,:) = N0 + (k1 + 2.0*k2 + 2.0*k3 + k4)/6.0;
+        
+    end
+    
+
+end
+
+
+##### SOURCE END #####
+--></body></html>

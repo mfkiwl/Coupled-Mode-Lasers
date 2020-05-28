@@ -7,7 +7,7 @@
 % Calls RK4 - check if this is present on the path!
 if (exist('RK4','file') ~= 2)
 
-    % Folder containing bisect.m
+    % Folder containing RK4.m
     addpath([userpath '/Overlap-Factor-Model/Numeric']); 
 
 end

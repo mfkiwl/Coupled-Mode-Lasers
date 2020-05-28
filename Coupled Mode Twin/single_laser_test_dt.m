@@ -1,12 +1,12 @@
 %% Single laser simulation to test fixed step Runge Kutta routine
 
-% This examines the optimum step size for single laser transients
+% This examines the effect of different step sizes for single laser transients
 
 % Use this code in any implementations using fixed step RK routine (RK4)
 % Calls RK4 - check if this is present on the path!
 if (exist('RK4','file') ~= 2)
 
-    % Folder containing bisect.m
+    % Folder containing RK4.m
     addpath([userpath '/Overlap-Factor-Model/Numeric']); 
 
 end
