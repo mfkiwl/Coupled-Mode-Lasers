@@ -29,15 +29,16 @@ etaAB = 0.53383;    % Amplitude of coupling coefficient of B laser in dYA/dt
 etaBA = 0.53383;    % Amplitude of coupling coefficient of A laser in dYB/dt
 theta = 0.0;        % Phase of complex coupling
 DW = 0;             % Frequency detuning
+DT = 0.0;           % Integration step size
 
-%opt = 0;            % Do NOT plot graphs, do NOT zero out noise 
-%opt = 1;            % DO plot graphs, do not zero out noise
-opt = 2;            % Do NOT plot graphs, DO zero out noise
-%opt = 3;            % DO plot graphs, DO zero out noise            
+%opt = 0;               % Do NOT plot graphs, do NOT zero out noise 
+%opt = 1;               % DO plot graphs, do not zero out noise
+opt = 2;                % Do NOT plot graphs, DO zero out noise
+%opt = 3;               % DO plot graphs, DO zero out noise            
 %%
 % Call the routine to calculate temporal dynamics. 
 
-[tout1, Nout1] = gaussianNoise(tsim1, QA, QB, etaAB, etaBA, theta, DW, param, opt);
+[tout1, Nout1] = gaussianNoise_dt(tsim1, DT, QA, QB, etaAB, etaBA, theta, DW, param, opt);
 
 %%
 % This runs the simulation for tsim*tau_N nanoseconds.
@@ -56,14 +57,16 @@ QA_pulse = 20;      % Normalised pump power in laser A
 QB_pulse = 5;       % Normalised pump power in laser B
 
 %opt = 0;            % Do NOT plot graphs, do NOT zero out noise 
-%opt = 1;            % DO plot graphs, do not zero out noise
+opt = 1;            % DO plot graphs, do not zero out noise
 %opt = 2;            % Do NOT plot graphs, DO zero out noise
 %opt = 3;            % DO plot graphs, DO zero out noise
 
 %%
 % Call runCoupled1D again, this time with intial values and pulse pump
 
-[tout2, Nout2] = gaussianNoise(t_pulse, QA_pulse, QB_pulse, etaAB, etaBA, theta, DW, param, opt, N0);
+DT = 0.0001;               % Integration step size
+
+[tout2, Nout2] = gaussianNoise_dt(t_pulse, DT, QA_pulse, QB_pulse, etaAB, etaBA, theta, DW, param, opt, N0);
 
 %%
 % Again, get end values for initial values of next run
@@ -78,12 +81,14 @@ tsim2 = tsim1 - t_pulse;    % Total simulation time will be 2*tsim1
 
 %opt = 0;            % Do NOT plot graphs, do NOT zero out noise 
 %opt = 1;            % DO plot graphs, do not zero out noise
-%opt = 2;            % Do NOT plot graphs, DO zero out noise
+opt = 2;            % Do NOT plot graphs, DO zero out noise
 %opt = 3;            % DO plot graphs, DO zero out noise
 
 % Call runCoupled1D one more time with original pump values
 
-[tout3, Nout3] = gaussianNoise(tsim2, QA, QB, etaAB, etaBA, theta, DW, param, opt, N0);
+DT = 0.0;               % Integration step size
+
+[tout3, Nout3] = gaussianNoise_dt(tsim2, DT, QA, QB, etaAB, etaBA, theta, DW, param, opt, N0);
 
 %%
 % Concatonate time and dynamic variables together
@@ -126,4 +131,5 @@ grid on;
 %%
 % Zoom in on pulse
 
-xlim([47 56]);
+xlim([50 55])
+ylim([0 35])
