@@ -13,14 +13,14 @@ param.yn = 1;           % 1/tau_N, where tau_N is the carrier lifetime
 theta = 0;              % coupling coefficient real
 
 %% Pump power
-P = 1.1;                  % P/Pth 
+P = 2.0;                  % P/Pth 
 CQ = 11.4;
 Q = CQ*(P - 1) + P;     % Normalised pump power in both guides
 QA = Q;
 QB = Q;
 
 %% Set up array for d/a
-NG = 61; % 31
+NG = 201; % 31
 
 dmax = 2.5;
 dmin = 1.0;
@@ -64,11 +64,11 @@ opt = 0;
 
 h = waitbar(0, 'Generating stability map...');
 
-for m = 1:M
+for n = 1:N 
     
-    for n = 1:N
+    for m = 1:M
         
-        if (n == 1)
+        if (m == 1)
             
             % Get solution from previous row
             Ns = N0;
@@ -95,12 +95,20 @@ for m = 1:M
         else
             
             eig_vals(n,m) = NaN;
+            
+            for k = m:M
+                
+                eig_vals(n,k) = NaN;
+                
+            end
+            
+            break
                  
         end 
         
     end
     
-    waitbar(m/M, h);
+    waitbar(n/N, h);
     
 end
 
