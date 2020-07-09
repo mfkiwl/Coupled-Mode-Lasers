@@ -35,23 +35,23 @@ opt = 1;            % Report to the command window
 % Stability map of DW v eta
 etaAB_max = 4.0;
 etaAB_min = 0.0;
-M = 11;
+M = 31;
 deta = (etaAB_max - etaAB_min)/(M-1);
 eta_AB = etaAB_min:deta:etaAB_max;
 
-etaBA_max = 4.0;
-etaBA_min = 0.0;
-N = 11;
-deta = (etaBA_max - etaBA_min)/(N-1);
-eta_BA = etaAB_min:deta:etaAB_max;
+theta_max = 2*pi;
+theta_min = 0.0;
+N = 31;
+dtheta = (theta_max - theta_min)/(N-1);
+theta_n = theta_min:dtheta:theta_max;
 
-[X, Y] = meshgrid(eta_AB, eta_BA);
+[X, Y] = meshgrid(eta_AB, theta_n);
 
 z = 0;
-Z = z*X.*Y;
+eig_vals = z*X.*Y;
 
 etaAB = etaAB_min;
-etaBA = etaBA_min;
+etaBA = etaAB_min;
 
 [Ns, found, E, esign] = solveAsymPair(QA, QB, etaAB, etaBA, theta, DW, param, opt);
 
@@ -61,17 +61,47 @@ for m = 1:M
     for n = 1:N
         
         etaAB = eta_AB(m);
-        etaBA = eta_BA(n);
-        
-        disp(['(' num2str(m) ', ' num2str(n) ')'])
+        etaBA = eta_AB(m);
+        theta = theta_n(n);
         
         [Ns, found, E, esign] = solveAsymPair(QA, QB, etaAB, etaBA, theta, DW, param, opt);
         
-        Z(n,m) = esign;
-        %Z(n,m) = max(real(E));
+        eig_vals(n,m) = max(real(E));
         
     end
+    
+    disp(['Row: ' num2str(m)])
 end
 
-contourf(X, Y, Z);
+% Create colour map
+values = eig_vals;
+ncols = 21;
+
+maxv = max(values(:));
+minv = min(values(:));
+
+vspan = maxv-minv;
+dv = vspan/(ncols - 1);
+
+sample = minv:dv:maxv;
+neg_mask = (sample <= 0);
+pos_mask = (sample > 0);
+
+c0 = 0.4;
+
+red = (1-c0)*abs(sample.*pos_mask/maxv) + c0*pos_mask;
+green = (1-c0)*abs(sample.*neg_mask/minv) + c0*neg_mask;
+blue = zeros(size(sample));
+
+mymap = transpose([red; green; blue]);
+
+
+figure('Name', 'Maximum real eigenvalues v coupling coefficient')
+contourf(X, Y, eig_vals)
+
+colormap(mymap)
+colorbar
+title([num2str(M) ' by ' num2str(N) ' grid'])
+xlabel('\eta')
+ylabel('\theta (rad)')
 

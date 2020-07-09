@@ -68,6 +68,7 @@ function [Ns, found, E, esign] = solveAsymPair(QA, QB, etaAB, etaBA, theta, DW, 
     % Flags
     no_initial = true;
     report = false;
+    found = false;
     
     tol = 1E-6;         % Tolerance used for near zero-valued eigenvalues 
     varnum = 5;         % Number of independent variables
