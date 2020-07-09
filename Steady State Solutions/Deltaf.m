@@ -20,7 +20,7 @@ QA = Q;
 QB = Q;
 
 %% Set up array for d/a
-NG = 31;
+NG = 61; % 31
 
 dmax = 2.5;
 dmin = 1.0;
