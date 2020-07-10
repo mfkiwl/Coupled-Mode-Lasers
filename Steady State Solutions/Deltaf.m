@@ -62,11 +62,24 @@ opt = 0;
 
 opt = 0;
 
-h = waitbar(0, 'Generating stability map...');
+h = waitbar(0, 'Generating stability map...',...
+    'CreateCancelBtn','setappdata(gcbf,''canceling'',1)');
+
+setappdata(h,'canceling',0);
+cancelled = false;
 
 for n = 1:N 
     
     for m = 1:M
+        
+        % Check if calculation has been cancelled
+        if getappdata(h, 'canceling')
+            
+            cancelled = true;
+            
+            break
+            
+        end
         
         if (m == 1)
             
@@ -108,42 +121,57 @@ for n = 1:N
         
     end
     
+    % Check if calculation has been cancelled
+    if (cancelled)
+        
+        break
+        
+    end
+    
     waitbar(n/N, h);
     
 end
 
-close(h)
+delete(h)
 
-%% Create colour map
-values = eig_vals;
-ncols = 11;
+if not(cancelled)
 
-maxv = max(values(:));
-minv = min(values(:));
+    %% Create colour map
+    values = eig_vals;
+    ncols = 11;
 
-vspan = maxv-minv;
-dv = vspan/(ncols - 1);
+    maxv = max(values(:));
+    minv = min(values(:));
 
-sample = minv:dv:maxv;
-neg_mask = (sample <= 0);
-pos_mask = (sample > 0);
+    vspan = maxv-minv;
+    dv = vspan/(ncols - 1);
 
-c0 = 0.4;
+    sample = minv:dv:maxv;
+    neg_mask = (sample <= 0);
+    pos_mask = (sample > 0);
 
-red = (1-c0)*abs(sample.*pos_mask/maxv) + c0*pos_mask;
-green = (1-c0)*abs(sample.*neg_mask/minv) + c0*neg_mask;
-blue = zeros(size(sample));
+    c0 = 0.4;
 
-mymap = transpose([red; green; blue]);
+    red = (1-c0)*abs(sample.*pos_mask/maxv) + c0*pos_mask;
+    green = (1-c0)*abs(sample.*neg_mask/minv) + c0*neg_mask;
+    blue = zeros(size(sample));
 
-figure('Name', 'Delta f v d/a')
-contourf(X, Y, eig_vals,'EdgeColor', 'none')
-colormap(mymap)
-colorbar
-title(['P/P_{th} = ' num2str(P)])
-xlabel('{\it d/a}')
-ylabel('\Delta{\it f} (GHz)')
-grid on
+    mymap = transpose([red; green; blue]);
+
+    figure('Name', 'Delta f v d/a')
+    contourf(X, Y, eig_vals,'EdgeColor', 'none')
+    colormap(mymap)
+    colorbar
+    title(['P/P_{th} = ' num2str(P)])
+    xlabel('{\it d/a}')
+    ylabel('\Delta{\it f} (GHz)')
+    grid on
+    
+else
+    
+    disp('User cancelled operation')
+    
+end
 
 % Clean up
 clear
