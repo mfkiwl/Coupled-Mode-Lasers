@@ -5,12 +5,13 @@
 param.aH = 2;       	% Linewidth enhancement factor
 param.k0 = 4.8332;   	% Free-space wavevector (1/micron)
 param.kp = 326.7974;	% Cavity loss rate 1/(2*tau_p) (1/ns)
+param.yn = 1;           % 1/tau_N, where tau_N is the carrier lifetime
+theta = 0;              % coupling coefficient real
+
+% Waveguide parameters
 param.n1 = 3.400971;	% Refractive index in core
 param.n2 = 3.4;         % Refractive index in cladding
 param.w = 8;            % Cavity width (micron)
-param.yn = 1;           % 1/tau_N, where tau_N is the carrier lifetime
-
-theta = 0;              % coupling coefficient real
 
 %% Pump power
 P = 2.0;                  % P/Pth 
