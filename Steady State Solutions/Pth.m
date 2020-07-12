@@ -147,5 +147,5 @@ Z = eig_vals;
 save('Pth.mat', 'X', 'Y', 'Z');
 
 % Clean up
-clear
+%clear
 
