@@ -1,4 +1,4 @@
-# Overlap Factor Model
+# Coupled Mode Lasers
 Matlab routines for laser dynamics.  
 
 ## INSTALLATION NOTES:
