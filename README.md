@@ -6,7 +6,7 @@ Matlab routines for laser dynamics.
 
 For these routines to work properly, both the 'Coupled Mode Twin' directory
 and the 'Numeric' directory should be in a directory called 
-'Coupled Mode Lasers' on the default MATLAB path. This is usually something
+'Coupled-Mode-Lasers' on the default MATLAB path. This is usually something
 like:
 
 ```
@@ -19,7 +19,7 @@ So the path to the parent directory should be something like:
 
 
 ```
-    C:\Users\<user_name>\Documents\MATLAB\Coupled Mode Lasers\
+    C:\Users\<user_name>\Documents\MATLAB\Coupled-Mode-Lasers\
 ```
 
 

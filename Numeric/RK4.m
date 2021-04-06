@@ -34,7 +34,7 @@ function [t, Nout] = RK4(func, Nin, t0, t1, dt)
 %
 % if (exist('RK4','file') ~= 2)
 %
-%    addpath([userpath '/Coupled Mode Lasers/Numeric']); 
+%    addpath([userpath '/Coupled-Mode-Lasers/Numeric']); 
 %
 % end
 %

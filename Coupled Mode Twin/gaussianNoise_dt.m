@@ -85,7 +85,7 @@ function [tout, Nout] = gaussianNoise_dt(tsim, dt, QA, QB, etaAB, etaBA, theta, 
     if (exist('RK4','file') ~= 2)
 
         % Folder containing RK4.m
-        addpath([userpath '/Coupled Mode Lasers/Numeric']); 
+        addpath([userpath '/Coupled-Mode-Lasers/Numeric']); 
 
     end
 

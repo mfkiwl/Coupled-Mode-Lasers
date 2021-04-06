@@ -3,7 +3,7 @@
 if (exist('bisect','file') ~= 2)
 
     % Folder containing bisect.m
-    addpath([userpath '/Coupled Mode Lasers/Numeric']); 
+    addpath([userpath '/Coupled-Mode-Lasers/Numeric']); 
 
 end
 
