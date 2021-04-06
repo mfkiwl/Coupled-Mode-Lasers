@@ -22,8 +22,6 @@ So the path to the parent directory should be something like:
     C:\Users\<user_name>\Documents\MATLAB\Coupled-Mode-Lasers\
 ```
 
-
-
 ## USER GUIDE:
 The 'Coupled Mode Twin' should have a sub-directory called 'html'. From 
 within MATLAB, double-click on the 'CoupledMode.html' file. This opens a 
@@ -79,5 +77,3 @@ file may be found in the ```Stability Map GUI``` folder
 ```
 
 Double clicking on this installs the app.
-
-
