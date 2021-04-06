@@ -1,0 +1,5 @@
+# Ignore MAT files
+*.mat
+*.MAT
+*.png
+*.PNG
