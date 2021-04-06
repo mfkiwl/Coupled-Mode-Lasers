@@ -64,7 +64,7 @@ function [beta_even, Gamma] = slabGuideBeta(k0, n1, n2, w)
     if (exist('bisect','file') ~= 2)
 
         % Folder containing bisect.m
-        addpath([userpath '/Overlap-Factor-Model/Numeric']); 
+        addpath([userpath '/Coupled Mode Lasers/Numeric']); 
 
     end
 

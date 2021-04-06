@@ -1,0 +1,163 @@
+
+STABILITY MAP VERSION 1.03
+(Scroll down to see most recent logs)
+
+Session: 16-Jul-2020 16:00:16
+
+Data loaded
+
+C:\Users\marti\Documents\MATLAB\GUIs\StabilityMap\Eq10\eta_v_q_in_phase_fine_grid.mat
+Stability map calculation:
+
+    Parameter                 Value
+    ----------------------------------------
+    alpha                     5
+    cavity loss rate (1/ns)   400
+    carrier loss rate (1/ns)  1
+    coupling (AB)             varied
+    coupling (BA)             varied
+    coupling phase (rad)      0
+    detuning (rad/ns)         0
+    pump (A)                  varied
+    pump (B)                  varied
+    ----------------------------------------
+
+    Axis   Parameter              Start         End           
+    ----------------------------------------------------------
+     X     pump (equal)           2             200           
+     Y     coupling (equal)       1             200           
+
+Looking for in-phase solutions
+for equal guides
+and equal pumps
+Map generated
+
+Stability map calculation:
+
+    Parameter                 Value
+    ----------------------------------------
+    alpha                     5
+    cavity loss rate (1/ns)   400
+    carrier loss rate (1/ns)  1
+    coupling (AB)             varied
+    coupling (BA)             varied
+    coupling phase (rad)      0
+    detuning (rad/ns)         0
+    pump (A)                  varied
+    pump (B)                  varied
+    ----------------------------------------
+
+    Axis   Parameter              Start         End           
+    ----------------------------------------------------------
+     X     pump (equal)           2             200           
+     Y     coupling (equal)       0             1000          
+
+Looking for in-phase solutions
+for equal guides
+and equal pumps
+Map generated
+
+Stability map calculation:
+
+    Parameter                 Value
+    ----------------------------------------
+    alpha                     5
+    cavity loss rate (1/ns)   400
+    carrier loss rate (1/ns)  1
+    coupling (AB)             varied
+    coupling (BA)             varied
+    coupling phase (rad)      0
+    detuning (rad/ns)         0
+    pump (A)                  varied
+    pump (B)                  varied
+    ----------------------------------------
+
+    Axis   Parameter              Start         End           
+    ----------------------------------------------------------
+     X     pump (equal)           2             200           
+     Y     coupling (equal)       0.01          1000          
+
+Looking for in-phase solutions
+for equal guides
+and equal pumps
+Map generated
+
+Stability map calculation:
+
+    Parameter                 Value
+    ----------------------------------------
+    alpha                     5
+    cavity loss rate (1/ns)   400
+    carrier loss rate (1/ns)  1
+    coupling (AB)             varied
+    coupling (BA)             varied
+    coupling phase (rad)      0
+    detuning (rad/ns)         0
+    pump (A)                  varied
+    pump (B)                  varied
+    ----------------------------------------
+
+    Axis   Parameter              Start         End           
+    ----------------------------------------------------------
+     X     pump (equal)           2             200           
+     Y     coupling (equal)       0.01          2000          
+
+Looking for in-phase solutions
+for equal guides
+and equal pumps
+Map generated
+
+Stability map calculation:
+
+    Parameter                 Value
+    ----------------------------------------
+    alpha                     5
+    cavity loss rate (1/ns)   400
+    carrier loss rate (1/ns)  1
+    coupling (AB)             varied
+    coupling (BA)             varied
+    coupling phase (rad)      0
+    detuning (rad/ns)         0
+    pump (A)                  varied
+    pump (B)                  varied
+    ----------------------------------------
+
+    Axis   Parameter              Start         End           
+    ----------------------------------------------------------
+     X     pump (equal)           1             40            
+     Y     coupling (equal)       0.01          2000          
+
+Looking for in-phase solutions
+for equal guides
+and equal pumps
+Map generated
+
+Stability map calculation:
+
+    Parameter                 Value
+    ----------------------------------------
+    alpha                     5
+    cavity loss rate (1/ns)   400
+    carrier loss rate (1/ns)  1
+    coupling (AB)             varied
+    coupling (BA)             varied
+    coupling phase (rad)      0
+    detuning (rad/ns)         0
+    pump (A)                  varied
+    pump (B)                  varied
+    ----------------------------------------
+
+    Axis   Parameter              Start         End           
+    ----------------------------------------------------------
+     X     pump (equal)           1.1           40            
+     Y     coupling (equal)       1000          2000          
+
+Looking for in-phase solutions
+for equal guides
+and equal pumps
+Map generated
+
+Data saved
+
+C:\Users\marti\Documents\MATLAB\GUIs\StabilityMap\Eq10\map_winful_wang_inphase.mat
+

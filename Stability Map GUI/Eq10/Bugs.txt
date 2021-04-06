@@ -1,0 +1,18 @@
+""
+"STABILITY MAP VERSION 1.03"
+"(Scroll down to see most recent logs)"
+""
+"Session: 16-Jul-2020 12:17:24"
+""
+"Data loaded"
+""
+"C:\Users\marti\Documents\MATLAB\GUIs\StabilityMap\Eq10\map_eta_v_q_anti_phase_fine_grid.mat"
+""
+"Debugging note: looks like label for y array becomes changed after loading."
+""
+"Error loading image"
+""
+"Functionality not supported with figures created with the uifigure function. For more information, see <a href=""matlab:helpview(fullfile(docroot,'matlab','helptargets.map'),'appdgrfx')"">Graphics Support in App Designer</a>."
+
+Table entries not recording correctly. For unequal pumping, QA should read 'varied'.
+

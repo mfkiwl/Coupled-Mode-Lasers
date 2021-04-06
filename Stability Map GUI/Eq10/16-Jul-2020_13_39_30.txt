@@ -1,0 +1,36 @@
+
+STABILITY MAP VERSION 1.03
+(Scroll down to see most recent logs)
+
+Session: 16-Jul-2020 13:39:30
+
+Data loaded
+
+C:\Users\marti\Documents\MATLAB\GUIs\StabilityMap\Eq10\eta_v_q_anti_phase_small_eta.mat
+Stability map calculation:
+
+    Parameter                 Value
+    ----------------------------------------
+    alpha                     5
+    cavity loss rate (1/ns)   400
+    carrier loss rate (1/ns)  1
+    coupling (AB)             varied
+    coupling (BA)             varied
+    coupling phase (rad)      0
+    detuning (rad/ns)         0
+    pump (A)                  2
+    pump (B)                  2
+    ----------------------------------------
+
+    Axis   Parameter              Start         End           
+    ----------------------------------------------------------
+     X     pump (A)               2             200           
+     Y     coupling (equal)       0.001         0.2           
+
+Looking for anti-phase solutions
+Map generated
+
+Data saved
+
+C:\Users\marti\Documents\MATLAB\GUIs\StabilityMap\Eq10\Map_Eq10_anti_phase_small_eta.mat
+

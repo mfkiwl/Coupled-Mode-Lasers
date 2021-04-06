@@ -76,7 +76,7 @@ function [tout, Nout] = runCoupled1D_dt(tsim, QA, QB, d, DW, param, varargin)
     if (exist('RK4','file') ~= 2)
 
         % Folder containing RK4.m
-        addpath([userpath '/Overlap-Factor-Model/Numeric']); 
+        addpath([userpath '/Coupled Mode Lasers/Numeric']); 
 
     end
 

@@ -7,7 +7,7 @@
 if (exist('RK4','file') ~= 2)
 
     % Folder containing RK4.m
-    addpath([userpath '/Overlap-Factor-Model/Numeric']); 
+    addpath([userpath '/Coupled Mode Lasers/Numeric']); 
 
 end
 

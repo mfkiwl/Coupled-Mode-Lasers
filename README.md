@@ -2,9 +2,11 @@
 Matlab routines for laser dynamics.  
 
 ## INSTALLATION NOTES:
+**Important:** *If you are cloning this repository, it should be placed directly in the default MATLAB path*.
+
 For these routines to work properly, both the 'Coupled Mode Twin' directory
 and the 'Numeric' directory should be in a directory called 
-'Overlap-Factor-Model' on the default MATLAB path. This is usually something
+'Coupled Mode Lasers' on the default MATLAB path. This is usually something
 like:
 
 ```
