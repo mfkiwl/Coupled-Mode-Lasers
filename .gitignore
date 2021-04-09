@@ -1,3 +1,6 @@
 # Ignore MAT files
 *.mat
 *.MAT
+
+# Ignore this directory
+Coupled-Waveguides/
