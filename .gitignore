@@ -2,5 +2,9 @@
 *.mat
 *.MAT
 
+# Ignore autosave files
+*.asv
+*.ASV
+
 # Ignore this directory
 Coupled-Waveguides/
