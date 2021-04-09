@@ -31,7 +31,7 @@ function [dN] = coupled1D(~, N0, param)
 %       YB = N0(4)          Amplitude in guide B
 %       phi = N0(5)         Relative phase between fields in A and B
 %
-%    param      an array containing the parameters:
+%    param      a structure containing the parameters:
 %
 %       yn = param.yn       1/(tau_N) - carrier recombination rate
 %       kp = param.kp       1/(2*tau_p) - cavity loss rate
