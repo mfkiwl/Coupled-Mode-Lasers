@@ -1,15 +1,20 @@
-function [dN] = asymPair(~, N0, param)
-%ASYMPAIR Rate equations for the asymmetric double cavity model
+function [dN] = coupled1D(~, N0, param)
+%COUPLED1D Rate equations for the 1D coupled mode model (twin cavity)
 %%
-% *ASYMPAIR*
+% *COUPLED1D*
 %
 %%  Description
 %
-% Provides the rate equations for the asymmetric double cavity model
+% Provides the rate equations for the coupled mode model (twin cavity). The
+% implementation is for the model given in [1]. This routine is used 
+% directly by the Runge-Kutta solver (ode45) and indirectly (via
+% coupled1DS) in conjunction with the nonlinear solver (fsolve).
+%  
+% [1] M.J. Adams et al, Phys. Rev. A 95(5), 053869 (2017)
 %
 %%  Usage
 %
-%    [dN] = asymPair(t, N0, param);
+%    [dN] = coupled1D(t, N0, param);
 %
 %%  Arguments
 %
@@ -28,15 +33,14 @@ function [dN] = asymPair(~, N0, param)
 %
 %    param      an array containing the parameters:
 %
-%       yn = param.yn           1/(tau_N) - carrier recombination rate
-%       kp = param.kp           1/(2*tau_p) - cavity loss rate
-%       aH = param.aH           Linewidth enhancement factor
-%       QA = param.QA           Normalised pumping rate in guide A    
-%       QB = param.QB           Normalised pumping rate in guide A 
-%       etaAB = param.etaAB     Amplitude of coupling coefficient AB 
-%       etaBA = param.etaBA     Amplitude of coupling coefficient BA
-%       theta = param.theta     Phase of coupling coefficient 
-%       DW = param.DW           Detuning between the cavity resonances
+%       yn = param.yn       1/(tau_N) - carrier recombination rate
+%       kp = param.kp       1/(2*tau_p) - cavity loss rate
+%       aH = param.aH       Linewidth enhancement factor
+%       QA = param.QA       Normalised pumping rate in guide A    
+%       QB = param.QB       Normalised pumping rate in guide A 
+%       eta = param.eta     Amplitude of coupling coefficient 
+%       theta = param.theta	Phase of coupling coefficient 
+%       DW = param.DW       Detuning between the cavity resonances
 %
 %%  Returns
 %
@@ -75,8 +79,7 @@ function [dN] = asymPair(~, N0, param)
     aH = param.aH;          % Linewidth enhancement factor
     QA = param.QA;          % Normalised pumping rate in guide A    
     QB = param.QB;          % Normalised pumping rate in guide A 
-    etaAB = param.etaAB;    % Amplitude of coupling coefficient AB
-    etaBA = param.etaBA;    % Amplitude of coupling coefficient BA
+    eta = param.eta;        % Amplitude of coupling coefficient 
     theta = param.theta;    % Phase of coupling coefficient 
     DW = param.DW;          % Detuning between the cavity resonances
 
@@ -89,14 +92,14 @@ function [dN] = asymPair(~, N0, param)
     dN(2) = yn*(QB - MB*(1.0 + IB));
 
     % dYA/dt:
-    dN(3) = kp*(MA - 1.0)*YA - etaAB*YB*sin(theta + phi);
+    dN(3) = kp*(MA - 1.0)*YA - eta*YB*sin(theta + phi);
 
-    % dYB/dt:
-    dN(4) = kp*(MB - 1.0)*YB - etaBA*YA*sin(theta - phi);
+    % dYB/dt
+    dN(4) = kp*(MB - 1.0)*YB - eta*YA*sin(theta - phi);
 
-    % dphi/dt: 
-    dN(5) = aH*kp*(MA - MB) - DW + etaAB*(YA/YB)*cos(theta - phi)...
-        - etaBA*(YB/YA)*cos(theta + phi);
+    % dphi/dt WARNING - THIS TERM APPEARS TO INDUCE NUMERICAL ERRORS (see
+    % notes)
+    dN(5) = aH*kp*(MA - MB) - DW + eta*((YA/YB)*cos(theta - phi) - (YB/YA)*cos(theta + phi));
 
 end
 
