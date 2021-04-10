@@ -30,12 +30,21 @@ function [param] = setParams(varargin)
 %       param.kp        cavity loss rate (1/(2*tau_p))
 %       param.aH        Linewidth enhancement factor
 %       param.kinj      Injection level rate (K_inj/tau_N)
+%       param.DWA       Free-running minus laser A angular frequency 
+%       param.DWB       Free-running minus laser B angular frequency 
+%       param.DW        Cavity detuning (see notes)
+%       param.DWinj 	Injection detuning (W_inj - W)
 %       param.QA        Normalised pumping rate in guide A    
 %       param.QB        Normalised pumping rate in guide A 
 %       param.eta       Amplitude of coupling coefficient 
 %       param.theta     Phase of coupling coefficient 
-%       param.DW        Detuning between the cavity resonances
 % 
+%% Notes
+%  
+%  The cavity detuing DW is included for compatibility with the coupled
+%  mode model without injection. The rate equations with injection do not
+%  use it explicitly.
+%
 %% Editable variables
 %
 %  This section contains variables intended to be regularly edited in-file.
@@ -49,8 +58,10 @@ function [param] = setParams(varargin)
 %       tau_N           Electron lifetime                       (ns)
 %       tau_p           Photon lifetime                         (ps)
 %       aH              Linewidth enhancement factor              
-%       DF              Cavity resonance detuning fB - fA       (GHz)
-%       DF_inj          Injection detuning f - f_inj            (GHz)
+%       F0              Free running frequency                  (GHz)
+%       FA              Frequency of laser in guide A           (GHz)
+%       FB              Frequency of laser in guide B           (GHz)
+%       F_inj           Injection laser frequency               (GHz)
 %       PA              P/Pth ratio in guide A                    
 %       PB              P/Pth ratio in guide B                    
 %       CQ              Pump gain constant CQ                     
@@ -80,13 +91,21 @@ function [param] = setParams(varargin)
     % Linewidth enhancement factor
     aH = 2.0;
     
-    % Detuning between the cavity resonances fB - fA (GHz) 
+    % Free running frequency (GHz) 
     % N.B. will be converted to (rad/ns)
-    DF = 0;
+    F0 = 2.3061e+05;
     
-    % Detuning between free-running and injection frequencies f - f_inj
-    % (GHz)
-    DF_inj = 0;
+    % Frequency of laser in guide A (GHz) 
+    % N.B. will be converted to (rad/ns)
+    FA = 2.3061e+05;
+    
+    % Frequency of laser in guide B (GHz) 
+    % N.B. will be converted to (rad/ns)
+    FB = 2.3061e+05;
+    
+    % Injection laser frequency (GHz)
+    % N.B. will be converted to (rad/ns)
+    F_inj = 2.3061e+05;
     
     % Ratio of pump to threshold pumping (P/Pth) in guide A
     PA = 2;
@@ -139,11 +158,18 @@ function [param] = setParams(varargin)
     % Cavity loss rate (1/ns)
     kp = 1.0/(2.0*tau_p);
     
-    % Convert detuning between the cavity resonances to rad/ns
-    DW = 2.0*pi*DF;
+    % Convert F0 - FA to rad/ns
+    DWA = 2.0*pi*(F0 - FA);
     
-    % Convert injection detuning to rad/ns
-    DWinj = 2.0*pi*DF_inj;
+    % Convert F0 - FB to rad/ns
+    DWB = 2.0*pi*(F0 - FB);
+    
+    % Convert F_inj - F0 to rad/ns
+    DWinj = 2.0*pi*(F_inj - F0);
+    
+    % Cavity detuing (included for compatibility with model without
+    % injection)
+    DW = 2.0*pi*(FB - FA);
     
     % Normalised pumping rate in guide A
     QA = CQ*(PA - 1) + PA;
@@ -165,7 +191,9 @@ function [param] = setParams(varargin)
 	param.kp = kp;          % Cavity loss rate
 	param.aH = aH;          % Linewidth enhancement factor
     param.kinj = kinj;      % Injection level rate
-    param.DW = DW;          % Detuning between the cavity resonances
+    param.DWA = DWA;        % Free-running minus laser A angular frequency 
+	param.DWB = DWB;        % Free-running minus laser B angular frequency
+    param.DW = DW;          % Cavity detuning 
     param.DWinj = DWinj;    % Injection detuning
 	param.QA = QA;          % Normalised pumping rate in guide A    
 	param.QB = QB;          % Normalised pumping rate in guide B 
