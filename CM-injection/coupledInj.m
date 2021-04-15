@@ -1,6 +1,6 @@
 function [dN] = coupledInj(~, N0, param)
 %COUPLEDInj Rate equations for the coupled mode model with optical
-%injection
+%injection and asymmetric coupling.
 %%
 % *COUPLEDInj*
 %
@@ -50,7 +50,8 @@ function [dN] = coupledInj(~, N0, param)
 %       param.DWinj 	Injection detuning (W_inj - W)
 %       param.QA        Normalised pumping rate in guide A    
 %       param.QB        Normalised pumping rate in guide A 
-%       param.eta       Amplitude of coupling coefficient 
+%       param.etaAB     Amplitude of coupling coefficient AB (asymmetric)
+%       param.etaBA     Amplitude of coupling coefficient BA (asymmetric) 
 %       param.theta     Phase of coupling coefficient 
 %
 %%  Returns
@@ -83,7 +84,8 @@ function [dN] = coupledInj(~, N0, param)
     DWinj = param.DWinj; 	% Injection detuning (W_inj - W)
     QA = param.QA;          % Normalised pumping rate in guide A    
     QB = param.QB;          % Normalised pumping rate in guide A 
-    eta = param.eta;        % Amplitude of coupling coefficient 
+	etaAB = param.etaAB;    % Amplitude of coupling coefficient AB 
+	etaBA = param.etaBA;    % Amplitude of coupling coefficient BA 
     theta = param.theta;    % Phase of coupling coefficient 
     
 
@@ -96,16 +98,16 @@ function [dN] = coupledInj(~, N0, param)
     dN(2) = yn*(QB - MB*(1.0 + IB));
 
     % dYA/dt:
-    dN(3) = kp*(MA - 1.0)*YA - eta*YB*sin(theta + phi) + kinj*cos(phiA);
+    dN(3) = kp*(MA - 1.0)*YA - etaAB*YB*sin(theta + phi) + kinj*cos(phiA);
 
     % dYB/dt
-    dN(4) = kp*(MB - 1.0)*YB - eta*YA*sin(theta - phi);
+    dN(4) = kp*(MB - 1.0)*YB - etaBA*YA*sin(theta - phi);
 
     % dphiA/dt 
-    dN(5) = aH*kp*(MA - 1) - DWA - (YB/YA)*eta*cos(theta + phi) + kinj*sin(phiA)/YA - DWinj;
+    dN(5) = aH*kp*(MA - 1) - DWA - (YB/YA)*etaAB*cos(theta + phi) + kinj*sin(phiA)/YA - DWinj;
     
     % dphiB/dt 
-    dN(6) = aH*kp*(MB - 1) - DWB - (YA/YB)*eta*cos(theta - phi) - DWinj;
+    dN(6) = aH*kp*(MB - 1) - DWB - (YA/YB)*etaBA*cos(theta - phi) - DWinj;
 
 end
 

@@ -36,7 +36,9 @@ function [param] = setParams(varargin)
 %       param.DWinj 	Injection detuning (W_inj - W)
 %       param.QA        Normalised pumping rate in guide A    
 %       param.QB        Normalised pumping rate in guide A 
-%       param.eta       Amplitude of coupling coefficient 
+%       param.eta       Amplitude of coupling coefficient (symmetric case)
+%       param.etaAB     Amplitude of coupling coefficient AB (asymmetric)
+%       param.etaBA     Amplitude of coupling coefficient BA (asymmetric)
 %       param.theta     Phase of coupling coefficient 
 % 
 %% Notes
@@ -180,6 +182,12 @@ function [param] = setParams(varargin)
     % Magnitude of coupling coefficient (1/ns)
     eta = C_eta*exp(-2.0*Wr*d/a);
     
+    % Magnitude of coupling coefficient AB (1/ns)
+    etaAB = eta;
+    
+    % Magnitude of coupling coefficient AB (1/ns)
+    etaBA = eta;
+    
     % Phase of coupling coefficient
     theta = C_theta - 2.0*Wi*d/a;
     
@@ -198,6 +206,8 @@ function [param] = setParams(varargin)
 	param.QA = QA;          % Normalised pumping rate in guide A    
 	param.QB = QB;          % Normalised pumping rate in guide B 
 	param.eta = eta;        % Amplitude of coupling coefficient 
+    param.etaAB = etaAB;    % Amplitude of coupling coefficient AB 
+    param.etaBA = etaBA;    % Amplitude of coupling coefficient BA
 	param.theta = theta;	% Phase of coupling coefficient 
 	
     

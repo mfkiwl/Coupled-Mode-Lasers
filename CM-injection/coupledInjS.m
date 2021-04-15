@@ -1,6 +1,6 @@
 function [dN] = coupledInjS(N0, param)
 %COUPLEDInjS Rate equations for the coupled mode model with optical
-%injection (no time dependence)
+%injection and asymmetric coupling (no time dependence)
 %%
 % *COUPLEDInjS*
 %
@@ -46,7 +46,8 @@ function [dN] = coupledInjS(N0, param)
 %       param.DWinj 	Injection detuning (W_inj - W)
 %       param.QA        Normalised pumping rate in guide A    
 %       param.QB        Normalised pumping rate in guide A 
-%       param.eta       Amplitude of coupling coefficient 
+%       param.etaAB     Amplitude of coupling coefficient AB (asymmetric)
+%       param.etaBA     Amplitude of coupling coefficient BA (asymmetric) 
 %       param.theta     Phase of coupling coefficient 
 %
 %%  Returns
