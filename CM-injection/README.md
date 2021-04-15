@@ -14,7 +14,7 @@
 ## Overview
 Matlab routines for simulating coupled mode laser dynamics with optical injection.
 
-![Rate Equations](images/rate_equations.png)
+<img src="images/rate_equations.png" alt="Rate Equations" width="700"/>
 
 ## Scripts
 None yet.
