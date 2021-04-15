@@ -181,9 +181,10 @@ if (xstat > 0)
         
     end
     
-    % Find eigenvectors and eigenvalues of Jacobian
-    [E] = eig(J);
+    % Find eigenvalues of Jacobian
+    E = eig(J);
     
+    % Get real parts of eigenvalues
     Er = real(E);
     Emax = max(Er);
     if (Emax < 0.0)
