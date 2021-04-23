@@ -38,8 +38,9 @@ This routine is used directly by the Runge-Kutta solver (ode45) and
 indirectly (via coupledInjS) in conjunction with the nonlinear solver 
 (fsolve).
   
-[1] N. Li et al, Sci Rep 8, 109 (2018)
-[2] M.J. Adams et al, Phys. Rev. A 95(5), 053869 (2017)
+[1] [N. Li et al, Sci Rep 8, 109 (2018)](https://doi.org/10.1038/s41598-017-18379-7)
+
+[2] [M.J. Adams et al, Phys. Rev. A 95(5), 053869 (2017)](https://doi.org/10.1103/PhysRevA.95.053869)
 
 #### Usage
 
@@ -102,8 +103,9 @@ Provides the rate equations for the coupled mode model with optical injection. T
    
 The 'S' at the end of the function name indicates that it is used primarily for finding the steady state solutions.
    
-[1] N. Li et al, Sci Rep 8, 109 (2018)
-[2] M.J. Adams et al, Phys. Rev. A 95(5), 053869 (2017)
+[1] [N. Li et al, Sci Rep 8, 109 (2018)](https://doi.org/10.1038/s41598-017-18379-7)
+
+[2] [M.J. Adams et al, Phys. Rev. A 95(5), 053869 (2017)](https://doi.org/10.1103/PhysRevA.95.053869)
 
 
 #### Usage
