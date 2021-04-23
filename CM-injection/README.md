@@ -89,8 +89,6 @@ indirectly (via coupledInjS) in conjunction with the nonlinear solver
 
 [Back to top](#Coupled-mode-lasers-with-injection)
 
-### setParams
-
 
 ### coupledInjS
 
@@ -100,23 +98,14 @@ Rate equations for the coupled mode model with optical injection and asymmetric 
 
  
 #### Description
-
-
-``` 
-  Provides the rate equations for the coupled mode model with optical
-  injection. The implementation is for the model given in [1], although
-  with the opposite sign convention taken for the phases on the optical
-  fields, as used in [2] for direct comparison with the model without
-  injection.
+Provides the rate equations for the coupled mode model with optical injection. The implementation is for the model given in [1], although with the opposite sign convention taken for the phases on the optical fields, as used in [2] for direct comparison with the model without injection.
    
-  The 'S' at the end of the function name indicates that it is used
-  primarily for finding the steady state solutions.
+The 'S' at the end of the function name indicates that it is used primarily for finding the steady state solutions.
    
-  [1] N. Li et al, Sci Rep 8, 109 (2018)
-  [2] M.J. Adams et al, Phys. Rev. A 95(5), 053869 (2017)
+[1] N. Li et al, Sci Rep 8, 109 (2018)
+[2] M.J. Adams et al, Phys. Rev. A 95(5), 053869 (2017)
 
-```
- 
+
 #### Usage
  
 ```
