@@ -1,4 +1,4 @@
-function [tout, Nout] = runSimulation(tsim, N0, param, varargin)
+function [tout, Nout] = runSimulation(tsim, N0, param)
 %RUNSIMULATION Solves the rate equations using the Runge-Kutta method 
 %   
 %% Description
@@ -40,8 +40,6 @@ function [tout, Nout] = runSimulation(tsim, N0, param, varargin)
 %               param.etaAB     Amplitude of coupling coefficient AB (asymmetric)
 %               param.etaBA     Amplitude of coupling coefficient BA (asymmetric)
 %               param.theta     Phase of coupling coefficient 
-%
-%   varargin    optional values:
 %
 %
 %% Returns
