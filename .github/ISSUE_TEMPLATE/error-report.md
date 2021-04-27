@@ -1,6 +1,6 @@
 ---
 name: Error report
-about: Concise description of error and how to reproduce it
+about: Please enter a concise description of the error and how to reproduce it
 title: ''
 labels: ''
 assignees: ''
