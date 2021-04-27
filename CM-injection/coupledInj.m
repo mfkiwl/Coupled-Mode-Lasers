@@ -69,6 +69,7 @@ function [dN] = coupledInj(~, N0, param)
     YB = N0(4);         % Amplitude in guide B
     phiA = N0(5);       % Phase of field in guide A 
     phiB = N0(6);       % Phase of field in guide B 
+    
     phi = phiB - phiA;  % Relative phase between fields in B and A
     
     % Intensities (all values real)

@@ -28,6 +28,10 @@ param.theta = 0.0;      % Phase of coupling coefficient
 QA = param.QA;
 QB = param.QB;
 
+% Number of simulation points over a time interval (set to zero for
+% variable step routine
+sim_pts = 4000;
+
 %%
 % Next, set the initial conditions and simulation time 
 
@@ -37,12 +41,21 @@ N0 = getInitial(param);
 
 tsim1 = 50;         % Simulation time (in units of 1/yn)
 
+if (sim_pts == 0)
+    
+    dt = 0.0;
+    
+else
+    
+    dt = tsim1/sim_pts;
+    
+end
 
 %%
 % Call the routine to calculate temporal dynamics (type 'help runSimulation
 % for details).
 
-[tout1, Nout1] = runSimulation(tsim1, N0, param);
+[tout1, Nout1] = runSimulation(tsim1, N0, param, dt);
 
 %%
 % This runs the simulation for tsim*tau_N nanoseconds.
@@ -63,10 +76,20 @@ QB_pulse = 5;       % Normalised pump power in laser B
 param.QA = QA_pulse;
 param.QB = QB_pulse;
 
+if (sim_pts == 0)
+    
+    dt = 0.0;
+    
+else
+    
+    dt = t_pulse/sim_pts;
+    
+end
+
 %%
 % Run simulation again, this time with intial values and pulse pump
 
-[tout2, Nout2] = runSimulation(t_pulse, N0, param);
+[tout2, Nout2] = runSimulation(t_pulse, N0, param, dt);
 
 %%
 % Again, get end values for initial values of next run
@@ -84,9 +107,19 @@ tsim2 = tsim1 - t_pulse;    % Total simulation time will be 2*tsim1
 param.QA = QA;
 param.QB = QB;
 
+if (sim_pts == 0)
+    
+    dt = 0.0;
+    
+else
+    
+    dt = tsim2/sim_pts;
+    
+end
+
 % Call simulation one more time with original pump values
 
-[tout3, Nout3] = runSimulation(tsim2, N0, param);
+[tout3, Nout3] = runSimulation(tsim2, N0, param, dt);
 
 %%
 % Concatonate time and dynamic variables together
@@ -105,7 +138,8 @@ N = cat(1, Nout1, Nout2, Nout3);
 % MB  = N(:,2);
 YA  = N(:,3);
 YB  = N(:,4);
-% phi = N(:,5);
+phiA = N(:,5);
+phiB = N(:,6);
 
 %%
 % Calculate intensities from optical fields
@@ -123,7 +157,24 @@ plot(t, IB, 'LineWidth', lw);
 title('Intensities');
 ylabel('Optical intensity');
 xlabel('Simulation time (\tau_{N})');
-legend('I_{1}','I_{2}');
+legend('I_{A}','I_{B}');
+grid on;
+
+%
+% Zoom in on pulse
+
+xlim([47 56]);
+
+% Second figure
+
+figure;
+hold on;
+plot(t, phiA, 'LineWidth', lw);
+plot(t, phiB, 'LineWidth', lw);
+title('Phases');
+ylabel('Optical phases');
+xlabel('Simulation time (\tau_{N})');
+legend('\Phi_{1}','\Phi_{2}');
 grid on;
 
 %%
